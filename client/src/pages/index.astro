@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import CardWithInput from '../components/CardWithInput.astro';
+import { ViewTransitions } from 'astro:transitions';
+import '../styles.css';
+---
+
+<Layout title="¿Como Se Dice?">
+	<main>
+			<defs>
+				<!-- <linearGradient
+					id="paint0_linear_1805_24383"
+					x1="247.358"
+					y1="0"
+					x2="247.358"
+					y2="622.479"
+					gradientUnits="userSpaceOnUse"
+				> -->
+					<stop stop-opacity="0.9"></stop>
+					<stop offset="1" stop-opacity="0.2"></stop>
+				</linearGradient>
+			</defs>
+		</svg>
+		<h1><span class="text-gradient">¿Como Se Dice?</span></h1>
+		<ul role="list" class="link-card-grid">
+			<Card
+				href="/singleplayer"
+				title="Start Singleplayer"
+				body="Play Como Se Dice Alone"
+			/>
+			<Card
+				href="hostmultiplayerRoom"
+				title="Start Multiplayer Room"
+				body="Start a room to play against friends 😈"
+			/>
+			<Card
+				href="daily"
+				title="Start Daily Challenge"
+				body="Get as many words right in the shortest time and see where you stack up against the world 🌐"
+			/>
+			<CardWithInput
+				title="Join Multiplayer Room"
+				roomCode="0000"
+
+			/>
+		</ul>
+	</main>
+</Layout>
+
+
