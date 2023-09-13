@@ -1,22 +1,21 @@
 ---
 interface Props {
 	title: string;
-	body: string;
-	href: string;
 }
 
-const { href, title, body } = Astro.props;
+const { roomCode, title, body } = Astro.props;
 ---
 
-<li class="link-card-withInput">
-	<a href={href}>
+<li class="link-card">
+	<a>
 		<h2>
 			{title}
 			<span>&rarr;</span>
 		</h2>
-		<p>
-			{body}
-		</p>
+		<form>
+		<label> Room Code: </label><input type="text" id="roomCode" size=4 name="roomCode">
+		<button>Go</button>
+		</form>
 	</a>
 </li>
 <style>
@@ -24,7 +23,7 @@ const { href, title, body } = Astro.props;
 		list-style: none;
 		display: flex;
 		padding: 1px;
-		background-color: #23262d;
+		background-color: #65bfff;
 		background-image: none;
 		background-size: 400%;
 		border-radius: 7px;
@@ -38,8 +37,8 @@ const { href, title, body } = Astro.props;
 		line-height: 1.4;
 		padding: calc(1.5rem - 1px);
 		border-radius: 8px;
-		color: white;
-		background-color: #23262d;
+		color: rgb(0, 0, 0);
+		background-color: #65bfff;
 		opacity: 0.8;
 	}
 	h2 {
@@ -53,7 +52,7 @@ const { href, title, body } = Astro.props;
 	}
 	.link-card:is(:hover, :focus-within) {
 		background-position: 0;
-		background-image: var(--accent-gradient);
+		background-image: var(--accent-dark);
 	}
 	.link-card:is(:hover, :focus-within) h2 {
 		color: rgb(var(--accent-light));
