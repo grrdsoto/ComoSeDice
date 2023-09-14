@@ -1,0 +1,27 @@
+---
+import tailwindConfig from "../../tailwind.config.cjs"; 
+const { title } = Astro.props;
+---
+<form class="text-center border-2 p-10 rounded justify-center ">
+    <div class="space-y-4">
+        <h1 class="text-black">{title}</h1>
+        <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox" name="gameModes" value="duo" />
+            <span class="text-black">Normal Mode</span>
+        </label>
+        <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox" name="gameModes" value="squad" />
+            <span class="text-black">Timed Mode</span>
+        </label>
+        <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox" name="gameModes" value="custom" />
+            <span class="text-black">Hard Mode </span>
+        </label>
+    </div>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600">Submit</button>
+</form>
+
+
+
+
+

@@ -7,7 +7,7 @@ import '../styles.css';
 ---
 
 <Layout title="¿Como Se Dice?">
-	<main>
+	<main class="snap-center">
 			<defs>
 				<!-- <linearGradient
 					id="paint0_linear_1805_24383"
@@ -22,15 +22,15 @@ import '../styles.css';
 				</linearGradient>
 			</defs>
 		</svg>
-		<h1><span class="text-gradient">¿Como Se Dice?</span></h1>
-		<ul role="list" class="link-card-grid">
+		<h1><span class="snap-center flex drop-shadow-md text-gradient rounded-xl dark:bg-slate-800 flex justify-center space-x-4 text-2xl">¿Como Se Dice?</span></h1>
+		<ul role="list" class="link-card-grid drop-shadow-xl">
 			<Card
 				href="/singleplayer"
 				title="Start Singleplayer"
 				body="Play Como Se Dice Alone"
 			/>
 			<Card
-				href="hostmultiplayerRoom"
+				href="/multiplayer"
 				title="Start Multiplayer Room"
 				body="Start a room to play against friends 😈"
 			/>
