@@ -4,22 +4,30 @@ import Card from '../components/Card.astro';
 import CardWithInput from '../components/CardWithInput.astro';
 import { ViewTransitions } from 'astro:transitions';
 import '../styles.css';
+
+const response = await fetch("http://localhost:3000/users/")
+const data = await response.json()
 ---
 
 <Layout title="¿Como Se Dice?">
+{data.map((item) => (
+					<ul>
+						<li>Name:{item.name}</li>
+					</ul>
+				))}
 	<main class="snap-center">
+	    <svg>
 			<defs>
-				<!-- <linearGradient
+				<linearGradient
 					id="paint0_linear_1805_24383"
 					x1="247.358"
 					y1="0"
 					x2="247.358"
 					y2="622.479"
 					gradientUnits="userSpaceOnUse"
-				> -->
 					<stop stop-opacity="0.9"></stop>
 					<stop offset="1" stop-opacity="0.2"></stop>
-				</linearGradient>
+				>
 			</defs>
 		</svg>
 		<h1><span class="snap-center flex drop-shadow-md text-gradient rounded-xl dark:bg-slate-800 flex justify-center space-x-4 text-2xl">¿Como Se Dice?</span></h1>
@@ -28,6 +36,7 @@ import '../styles.css';
 				href="/singleplayer"
 				title="Start Singleplayer"
 				body="Play Como Se Dice Alone"
+				
 			/>
 			<Card
 				href="/multiplayer"
