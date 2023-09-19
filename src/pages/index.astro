@@ -2,19 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import CardWithInput from '../components/CardWithInput.astro';
+import Button from '../components/Button.astro';
 import { ViewTransitions } from 'astro:transitions';
 import '../styles.css';
-
-const response = await fetch("http://localhost:3000/users/")
-const data = await response.json()
 ---
 
 <Layout title="¿Como Se Dice?">
-{data.map((item) => (
-					<ul>
-						<li>Name:{item.name}</li>
-					</ul>
-				))}
+
+	
+
 	<main class="snap-center">
 	    <svg>
 			<defs>
