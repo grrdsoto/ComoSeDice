@@ -1,18 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
 
+<Layout title="Register">
+  <h1>Register</h1>
+  <p>Already have an account? <a href="/signin">Sign in</a></p>
+  <form action="/api/auth/register" method="post">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" />
 
-<h1>Register</h1>
-<form action="/users" method="POST">
-  <label>
-    Username:
-    <input type="text" name="username" required />
-  </label>
-  <label>
-    Email:
-    <input type="email" name="email" required />
-  </label>
-  <label>
-    Password:
-    <input type="password" name="password" required minlength="6" />
-  </label>
-  <button>Submit</button>
-</form>
+    <label for="username">username</label>
+    <input name="username" id="username" />
+
+    <label for="email" for="email">Email</label>
+    <input type="email" name="email" id="email" />
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" />
+
+    <button type="submit">Login</button>
+  </form>
+</Layout>
