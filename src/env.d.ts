@@ -1,4 +1,6 @@
-// Allows us to use in other files.
+/**
+ * Allows us to use environement variables in other files.
+ */
 interface ImportMetaEnv {
     readonly FIREBASE_PRIVATE_KEY_ID: string;
     readonly FIREBASE_PRIVATE_KEY: string;
