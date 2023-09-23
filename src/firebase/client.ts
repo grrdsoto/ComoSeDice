@@ -1,3 +1,7 @@
+/**
+ * Configuration to use the database on the client side.
+ */
+
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
