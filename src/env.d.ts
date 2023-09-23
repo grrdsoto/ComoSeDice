@@ -2,15 +2,24 @@
  * Allows us to use environement variables in other files.
  */
 interface ImportMetaEnv {
-    readonly FIREBASE_PRIVATE_KEY_ID: string;
-    readonly FIREBASE_PRIVATE_KEY: string;
-    readonly FIREBASE_PROJECT_ID: string;
-    readonly FIREBASE_CLIENT_EMAIL: string;
-    readonly FIREBASE_CLIENT_ID: string;
-    readonly FIREBASE_AUTH_URI: string;
-    readonly FIREBASE_TOKEN_URI: string;
-    readonly FIREBASE_AUTH_CERT_URL: string
-    readonly FIREBASE_CLIENT_CERT_URL: string;
+    // Server side keys.
+    readonly SERVER_FIREBASE_PRIVATE_KEY_ID: string;
+    readonly SERVER_FIREBASE_PRIVATE_KEY: string;
+    readonly SERVER_FIREBASE_PROJECT_ID: string;
+    readonly SERVER_FIREBASE_CLIENT_EMAIL: string;
+    readonly SERVER_FIREBASE_CLIENT_ID: string;
+    readonly SERVER_FIREBASE_AUTH_URI: string;
+    readonly SERVER_FIREBASE_TOKEN_URI: string;
+    readonly SERVER_FIREBASE_AUTH_CERT_URL: string
+    readonly SERVER_FIREBASE_CLIENT_CERT_URL: string;
+
+    // Client side keys.
+    readonly PUBLIC_CLIENT_FIREBASE_API_KEY: string;
+    readonly PUBLIC_CLIENT_AUTH_DOMAIN: string;
+    readonly PUBLIC_CLIENT_PROJECT_ID: string;
+    readonly PUBLIC_CLIENT_STORAGE_BUCKET: string;
+    readonly PUBLIC_CLIENT_MESSAGE_SENDER_ID: string;
+    readonly PUBLIC_CLIENT_APP_ID: string;
   }
   
   interface ImportMeta {
