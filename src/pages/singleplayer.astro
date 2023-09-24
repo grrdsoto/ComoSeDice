@@ -1,14 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import GameLayout from '../layouts/GameLayout.astro';
 import Card from '../components/Card.astro';
 import Button from './Button.astro';
 import { ViewTransitions } from 'astro:transitions';
 import SettingsForm from '../components/SettingsForm.astro';
+import Game from '../components/Game.astro';
 import '../styles.css'
 ---
-
-
-<Layout title="¿Como Se Dice?">
+<GameLayout title="¿Como Se Dice?">
 	<main>
 			<defs>
 				<linearGradient
@@ -26,10 +25,10 @@ import '../styles.css'
 		</svg>
         <h1><span class="text-center text-gradient">¿Como Se Dice?</span></h1>
 		<SettingsForm
-		title="Singleplayer"
+		title="Singleplayer" class="z-10"
 		></SettingsForm>
-
+<Game/>
 		
 
 	</main>
-</Layout>
+</GameLayoutLayout>

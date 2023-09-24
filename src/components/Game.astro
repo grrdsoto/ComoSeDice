@@ -1,0 +1,16 @@
+---
+import { ButtonProps } from "./common.ts";
+import NextWordCard from "./NextWordCard.astro";
+import WordGuessField from "./WordGuessField.astro";
+import Button from "./Button.astro";
+---
+
+<NextWordCard id="wordContainer">{newWord}</NextWordCard>
+<WordGuessField id="guessField"/>
+<Button id="guessButton" class='justify-center' title="Guess"></Button>
+<div result>
+<button id="guessButton">Guess</button>
+<script>
+</script>
+
+
