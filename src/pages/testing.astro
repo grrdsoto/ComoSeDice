@@ -1,0 +1,144 @@
+---
+// Importing components and layouts.
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import CardWithInput from '../components/CardWithInput.astro';
+
+// Importing database tools.
+import { app } from "../firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from 'firebase-admin/firestore';
+
+// Initalizing the method that will allow us to get the user.
+const auth = getAuth(app);
+
+// Importing user interface
+import type { userModel } from '../pages/api/interfaces/user';
+
+import '../styles.css';
+
+// Check current session 
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+const db = getFirestore(app);
+const usersRef = db.collection("users");
+const userSnapshot = await usersRef.doc(user.uid).get();
+
+if (!userSnapshot.exists) {
+  return Astro.redirect("/404");
+}
+const currentUser = userSnapshot.data() as userModel;
+---
+
+<Layout title="¿Como Se Dice?">
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <!-- TODO - Where should we point it to? -->
+    <a href="https://flowbite.com/" class="flex items-center">
+        <img src="/src/pages/images/comosedicelogo.png" class="h-8 mr-3" alt="como se dice Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">como se dice</span>
+    </a>
+    <div class="flex items-center md:order-2">
+        <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <span class="sr-only">Open user menu</span>
+          <img class="w-8 h-8 rounded-full" src="/src/pages/images/mario.png" alt="user photo">
+        </button>
+        <!-- Dropdown menu -->
+        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+          <div class="px-4 py-3">
+            <span class="block text-sm text-gray-900 dark:text-white"> { currentUser.username } </span>
+            <span class="block text-sm  text-gray-500 truncate dark:text-gray-400"> { currentUser.email } </span>
+          </div>
+          <ul class="py-2" aria-labelledby="user-menu-button">
+            <!-- Leaderboards yet to come. -->
+            <li>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Stats</a>
+            </li>
+            <li>
+                <form action="/api/auth/signout">
+                    <button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" type="submit">Sign out</button>
+                </form>
+            </li>
+          </ul>
+        </div>
+        <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+      </button>
+    </div>
+    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          <a href="/" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</a>
+        </li>
+        <li>
+          <a href="/leaderboard" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Leaderboard</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </nav>
+
+  <main class="snap-center dark:bg-gray-900">
+    <svg>
+        <defs>
+            <linearGradient
+                id="paint0_linear_1805_24383"
+                x1="247.358"
+                y1="0"
+                x2="247.358"
+                y2="622.479"
+                gradientUnits="userSpaceOnUse"
+                <stop stop-opacity="0.9"></stop>
+                <stop offset="1" stop-opacity="0.2"></stop>
+            >
+        </defs>
+	</svg>
+
+    <ul role="list" class="link-card-grid drop-shadow-xl">
+        <Card
+            href="/singleplayer"
+            title="Start Singleplayer"
+            body="Play Como Se Dice Alone"
+            
+        />
+        <Card
+            href="/multiplayer"
+            title="Start Multiplayer Room"
+            body="Start a room to play against friends 😈"
+        />
+        <Card
+            href="daily"
+            title="Start Daily Challenge"
+            body="Get as many words right in the shortest time and see where you stack up against the world 🌐"
+        />
+        <CardWithInput
+            title="Join Multiplayer Room"
+            roomCode="0000"
+
+        />
+        </ul>
+    </main>
+</Layout>
+
+<script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+
+<style>
+    button {
+        width: 100%;
+        height: 100%;
+        text-align: left;
+    }
+</style>
+  

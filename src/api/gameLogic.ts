@@ -1,4 +1,4 @@
-const words: { spanish: string; english: string }[] = [
+const words: { spanish: string; english: string } [] = [
     { spanish: "gato", english: "cat" },
     { spanish: "perro", english: "dog" },
     { spanish: "casa", english: "house" },
@@ -13,10 +13,11 @@ const words: { spanish: string; english: string }[] = [
 
 let currentWordIndex = 0;
 
-let wordContainer = document.querySelectorAll('wordContainer');
+let wordContainer = document.getElementById('wordContainer');
 const guessField = document.querySelectorAll('guess');
-const guessButton = document.querySelectorAll('Button.guessButton');
+const guessButton = document.getElementById('guessButton');
 const resultDiv = document.querySelectorAll('result');
+
 function displayNextWord() {
     if (currentWordIndex < words.length) {
         wordContainer = `¿Como Se Dice? ${words[currentWordIndex].spanish}`;
