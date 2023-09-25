@@ -50,11 +50,13 @@ import Button from "./Button.astro";
         console.log("Print userGuess " + userGuess);
         const currentWord = words[currentWordIndex];
         console.log("Print currentWord " + currentWord.spanish.toLowerCase());
-        if (userGuess === currentWord.spanish.toLowerCase()) {
+        if (userGuess === currentWord.english.toLowerCase()) {
+            console.log("Correct plus one point");
             resultDiv.textContent = 'Correct!';
             currentWordIndex++;
             setTimeout(displayNextWord, 1000);
         } else {
+            console.log("Not correct");
             resultDiv.textContent = 'Incorrect. Try again.';
         }
     });
