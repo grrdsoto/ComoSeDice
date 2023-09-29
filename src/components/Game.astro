@@ -3,6 +3,9 @@ import { ButtonProps } from "./common.ts";
 import NextWordCard from "./NextWordCard.astro";
 import WordGuessField from "./WordGuessField.astro";
 import Button from "./Button.astro";
+import Confetti from '../api/confetti.jsx'
+import ReactDOM from "react-dom";
+
 ---
 
 <NextWordCard></NextWordCard>
@@ -40,12 +43,24 @@ import Button from "./Button.astro";
             guessField.value = '';
             resultDiv.textContent = '';
         } else {
-            wordContainer.textContent = 'Game Over';
+            // const [isExploding, setIsExploding] = React.useState(false);
+            wordContainer.textContent = 'You Win!';
             guessField.style.display = 'none';
             guessButton.style.display = 'none';
-        }
+            // <Confetti/>
+
+      } 
     }
     guessButton.addEventListener('click', () => { 
+        checkAnswer();
+    });
+    document.addEventListener('keydown', function (e){
+        console.log('pressed a key')
+        if (e.key === 'Enter'){
+            checkAnswer();
+        }
+    });
+    function checkAnswer(){
         const userGuess = guessField.value.toLowerCase();
         console.log("Print userGuess " + userGuess);
         const currentWord = words[currentWordIndex];
@@ -54,14 +69,14 @@ import Button from "./Button.astro";
             console.log("Correct plus one point");
             resultDiv.textContent = 'Correct!';
             currentWordIndex++;
-            setTimeout(displayNextWord, 1000);
+            displayNextWord();
         } else {
             console.log("Not correct");
+            guessField.value = '';
             resultDiv.textContent = 'Incorrect. Try again.';
         }
-    });
-
-    
+    }
 </script>
 
 
+../api/confetti.js
