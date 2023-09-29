@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from "../components/Navbar.astro";
+import Navbar from '../components/navigationBar/Navbar.astro';
+import LeaderboardRow from '../components/leaderboard/LeaderboardRow.astro';
 
 // Importing database tools.
 import { app } from "../firebase/server";
@@ -33,13 +34,81 @@ if (!userSnapshot.exists) {
   return Astro.redirect("/404");
 }
 const currentUser = userSnapshot.data() as userModel;
+
+/*
+ * Query to get x amount of users (done by the .limit(x) method) from the "users" collection sorted in
+ * descending order (default value) of 'timedGameMode.bestScore'. 
+ * This means that the array will have the following structure:
+ * 
+ * index 0 -> rank #1 best score
+ * index 1 -> rank #2 best score
+ * etc.
+ */
+ const firstThreeRes = await usersRef.orderBy('timedGameMode.bestScore', 'desc').limit(3).get();
+
+// Creation of array that will be used to store the top x users and then stored in userArray.
+const userArray: userModel[] = [];
+firstThreeRes.forEach(doc => {
+  userArray.push(doc.data() as userModel)
+})
 ---
 
 <Layout title='leaderboard'>
     <Navbar 
-    username={ currentUser.username }, 
-    email={ currentUser.email }, 
-    userImage='/src/pages/images/mario.png'
+      username={ currentUser.username }, 
+      email={ currentUser.email }, 
+      userImage='/src/pages/images/mario.png'
     />
+
+
+  <h1 class="flex justify-center items-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white">Leaderboard</h1>
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Rank
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    High score
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Streak
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          <LeaderboardRow 
+            username = { userArray[0].username };
+            email = { userArray[0].email };
+            bestScore = { userArray[0].timedGameMode.bestScore };
+            streak = { userArray[0].timedGameMode.gamesPlayed };
+            rank = "# 1";
+          ></LeaderboardRow>
+
+          <LeaderboardRow 
+            username = { userArray[1].username };
+            email = { userArray[1].email };
+            bestScore = { userArray[1].timedGameMode.bestScore };
+            streak = { userArray[1].timedGameMode.gamesPlayed };
+            rank = "# 2";
+          ></LeaderboardRow>
+
+          <LeaderboardRow 
+            username = { userArray[2].username };
+            email = { userArray[2].email };
+            bestScore = { userArray[2].timedGameMode.bestScore };
+            streak = { userArray[2].timedGameMode.gamesPlayed };
+            rank = "# 3";
+          ></LeaderboardRow>
+
+        </tbody>
+    </table>
+  </div>
+
 </Layout>
 
