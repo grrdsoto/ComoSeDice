@@ -14,6 +14,9 @@ const auth = getAuth(app);
 // Importing user interface
 import type { userModel } from '../pages/api/interfaces/user';
 
+// Importing the top X best scores for the timed game mode.
+import { getXBestTimedScores } from '../pages/api/users/leaderboards.ts';
+
 // Check current session 
 if (!Astro.cookies.has("session")) {
   return Astro.redirect("/signin");
@@ -33,24 +36,12 @@ const userSnapshot = await usersRef.doc(user.uid).get();
 if (!userSnapshot.exists) {
   return Astro.redirect("/404");
 }
+
+// Getting the current user.
 const currentUser = userSnapshot.data() as userModel;
 
-/*
- * Query to get x amount of users (done by the .limit(x) method) from the "users" collection sorted in
- * descending order (default value) of 'timedGameMode.bestScore'. 
- * This means that the array will have the following structure:
- * 
- * index 0 -> rank #1 best score
- * index 1 -> rank #2 best score
- * etc.
- */
- const firstThreeRes = await usersRef.orderBy('timedGameMode.bestScore', 'desc').limit(3).get();
-
-// Creation of array that will be used to store the top x users and then stored in userArray.
-const userArray: userModel[] = [];
-firstThreeRes.forEach(doc => {
-  userArray.push(doc.data() as userModel)
-})
+// Getting the X users with best scores in the timed game mode.
+const testingArray = await getXBestTimedScores()
 ---
 
 <Layout title='leaderboard'>
@@ -83,26 +74,26 @@ firstThreeRes.forEach(doc => {
         </thead>
         <tbody>
           <LeaderboardRow 
-            username = { userArray[0].username };
-            email = { userArray[0].email };
-            bestScore = { userArray[0].timedGameMode.bestScore };
-            streak = { userArray[0].timedGameMode.gamesPlayed };
+            username = { testingArray[0].username };
+            email = { testingArray[0].email };
+            bestScore = { testingArray[0].timedGameMode.bestScore };
+            streak = { testingArray[0].timedGameMode.gamesPlayed };
             rank = "# 1";
           ></LeaderboardRow>
 
           <LeaderboardRow 
-            username = { userArray[1].username };
-            email = { userArray[1].email };
-            bestScore = { userArray[1].timedGameMode.bestScore };
-            streak = { userArray[1].timedGameMode.gamesPlayed };
+            username = { testingArray[1].username };
+            email = { testingArray[1].email };
+            bestScore = { testingArray[1].timedGameMode.bestScore };
+            streak = { testingArray[1].timedGameMode.gamesPlayed };
             rank = "# 2";
           ></LeaderboardRow>
 
           <LeaderboardRow 
-            username = { userArray[2].username };
-            email = { userArray[2].email };
-            bestScore = { userArray[2].timedGameMode.bestScore };
-            streak = { userArray[2].timedGameMode.gamesPlayed };
+            username = { testingArray[2].username };
+            email = { testingArray[2].email };
+            bestScore = { testingArray[2].timedGameMode.bestScore };
+            streak = { testingArray[2].timedGameMode.gamesPlayed };
             rank = "# 3";
           ></LeaderboardRow>
 
@@ -111,4 +102,3 @@ firstThreeRes.forEach(doc => {
   </div>
 
 </Layout>
-
