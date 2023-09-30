@@ -14,7 +14,7 @@ import type { userModel } from '../pages/api/interfaces/user';
 import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
 
 // Importing the top X best scores for the timed game mode.
-import { getXBestTimedScores } from '../pages/api/users/leaderboards.ts';
+import { getFiveBestTimedScores } from '../pages/api/users/leaderboards.ts';
 
 // Initalizing the method that will allow us to get the user.
 const auth = getAuth(app);
@@ -38,7 +38,7 @@ if (!userSnapshot.exists) {
 const currentUser = userSnapshot.data() as userModel;
 
 // Getting the X users with best scores in the timed game mode.
-const testingArray = await getXBestTimedScores()
+const testingArray = await getFiveBestTimedScores()
 ---
 
 <Layout title='leaderboard'>

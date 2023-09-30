@@ -7,13 +7,13 @@ const db = getFirestore(app);
 const usersRef = db.collection("users");
 
 /**
- * Gets the X best scores of the timed game mode.
+ * Gets the 5 best scores of the timed game mode.
  * 
  * @returns array of users with best scores.
  */
-export async function getXBestTimedScores() {
+export async function getFiveBestTimedScores() {
     /*
-    * Query to get x amount of users (done by the .limit(x) method) from the "users" collection sorted in
+    * Query to get 5 users (done by the .limit(5) method) from the "users" collection sorted in
     * descending order (default value) of 'timedGameMode.bestScore'. 
     * This means that the array will have the following structure:
     * 
