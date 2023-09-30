@@ -47,7 +47,7 @@ if (Astro.cookies.has("session")) {
                       Sign in
                     </button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Sign in with <button class="font-medium text-primary-600 text-blue-600 hover:underline dark:text-primary-500" id="google">Google</button><br><br>
+                      <!-- Sign in with <button class="font-medium text-primary-600 text-blue-600 hover:underline dark:text-primary-500" id="google">Google</button><br><br> -->
                       Don't have an account yet? <a href="/register" class="font-medium text-blue-600 text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
                     </p>
                 </form>
@@ -90,23 +90,24 @@ if (Astro.cookies.has("session")) {
       return;
     }
 
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-    const idToken = await userCredential.user.getIdToken();
-    const response = await fetch("/api/auth/signin", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => userCredential.user.getIdToken())
+    .then((idToken) => fetch("/api/auth/signin", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      }))
+    .then((response) => {
+      if (response.redirected) {
+        window.location.assign(response.url);
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert("Your password or email was incorrect, try again!")
     });
-
-    if (response.redirected) {
-      window.location.assign(response.url);
-    }
   });
 
   // Code that enables google signin.

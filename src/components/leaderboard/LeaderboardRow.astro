@@ -4,11 +4,11 @@ interface Props {
 	username: string;
 	email: string;
   bestScore: string;
-  streak: string;
+  gamesPlayed: string;
   rank: string;
 }
 
-const { username, email, bestScore, streak, rank } = Astro.props;
+const { username, email, bestScore, gamesPlayed, rank } = Astro.props;
 ---
 
 <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -26,7 +26,7 @@ const { username, email, bestScore, streak, rank } = Astro.props;
     { bestScore }
   </td>
   <td class="px-6 py-4">
-    { streak }
+    { gamesPlayed }
   </td>
 </tr>
 
