@@ -3,18 +3,19 @@ import { ButtonProps } from "./common.ts";
 import NextWordCard from "./NextWordCard.astro";
 import WordGuessField from "./WordGuessField.astro";
 import Button from "./Button.astro";
-import Confetti from '../api/confetti.jsx'
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 
 ---
 
-<NextWordCard></NextWordCard>
+<NextWordCard title="something"></NextWordCard>
 <WordGuessField/>
 <Button class='justify-center' title="Guess"></Button>
-<div result>
+<!-- <div result> -->
 <!-- <button id="guessButton">Guess</button> -->
 
 <script>
+    import confetti from "canvas-confetti";
+    import "../styles.css"
     const words: { spanish: string; english: string } [] = [
     { spanish: "gato", english: "cat" },
     { spanish: "perro", english: "dog" },
@@ -30,7 +31,7 @@ import ReactDOM from "react-dom";
 
     let currentWordIndex = 0;
 
-    let wordContainer = document.getElementById('wordContainer');
+    let nextWordContainer = document.getElementById('nextWordContainer');
     let guessField = document.getElementById('guessField');
     let guessButton = document.getElementById('guessButton');
     let resultDiv = document.querySelectorAll('result');
@@ -39,12 +40,11 @@ import ReactDOM from "react-dom";
         console.log("In displayNextWord") 
         if (currentWordIndex < words.length) {
             console.log("Here")
-            wordContainer.textContent = "¿Como Se Dice? " + words[currentWordIndex].spanish;
+            nextWordContainer.textContent = "¿Como Se Dice? " + words[currentWordIndex].spanish;
             guessField.value = '';
             resultDiv.textContent = '';
         } else {
-            // const [isExploding, setIsExploding] = React.useState(false);
-            wordContainer.textContent = 'You Win!';
+            nextWordContainer.textContent = 'You Win!';
             guessField.style.display = 'none';
             guessButton.style.display = 'none';
             // <Confetti/>
@@ -66,15 +66,28 @@ import ReactDOM from "react-dom";
         const currentWord = words[currentWordIndex];
         console.log("Print currentWord " + currentWord.spanish.toLowerCase());
         if (userGuess === currentWord.english.toLowerCase()) {
+
             console.log("Correct plus one point");
-            resultDiv.textContent = 'Correct!';
+            // resultDiv.textContent = 'Correct!';
+            confetti();
+            changeColor("Correct");
             currentWordIndex++;
             displayNextWord();
         } else {
-            console.log("Not correct");
+            // console.log("Not correct");
             guessField.value = '';
-            resultDiv.textContent = 'Incorrect. Try again.';
+            // resultDiv.textContent = 'Incorrect. Try again.';
+            changeColor("Incorrect");
         }
+    }
+    function changeColor(choice: string){
+        if (choice == "Correct"){
+            // nextWordContainer.parentElement.style.backgroundColor.addClass("backgroundAnimated");
+            nextWordContainer.parentElement.style.backgroundColor = 'green';
+        } else if (choice == "Incorrect"){
+            console.log("red");
+            nextWordContainer.parentElement.style.backgroundColor = 'red';
+        }        
     }
 </script>
 
