@@ -68,6 +68,7 @@ const testingArray = await getXBestTimedScores()
                 </th>
             </tr>
         </thead>
+        
         <tbody>
           <LeaderboardRow 
             username = { testingArray[0].username };
@@ -91,6 +92,22 @@ const testingArray = await getXBestTimedScores()
             bestScore = { testingArray[2].timedGameMode.bestScore };
             streak = { testingArray[2].timedGameMode.gamesPlayed };
             rank = "# 3";
+          ></LeaderboardRow>
+
+          <LeaderboardRow 
+            username = { testingArray[3].username };
+            email = { testingArray[3].email };
+            bestScore = { testingArray[3].timedGameMode.bestScore };
+            streak = { testingArray[3].timedGameMode.gamesPlayed };
+            rank = "# 4";
+          ></LeaderboardRow>
+
+          <LeaderboardRow 
+            username = { testingArray[4].username };
+            email = { testingArray[4].email };
+            bestScore = { testingArray[4].timedGameMode.bestScore };
+            streak = { testingArray[4].timedGameMode.gamesPlayed };
+            rank = "# 5";
           ></LeaderboardRow>
 
         </tbody>

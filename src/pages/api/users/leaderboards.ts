@@ -21,7 +21,7 @@ export async function getXBestTimedScores() {
     * index 1 -> rank #2 best score
     * etc.
     */
-    const firstThreeRes = await usersRef.orderBy('timedGameMode.bestScore', 'desc').limit(3).get();
+    const firstThreeRes = await usersRef.orderBy('timedGameMode.bestScore', 'desc').limit(5).get();
 
     // Creation of array that will be used to store the top x users and then stored in userArray.
     const userArray: userModel[] = [];
