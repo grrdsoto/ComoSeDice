@@ -1,14 +1,52 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Navbar from "../components/navigationBar/Navbar.astro";
 import Card from '../components/Card.astro';
 import CardWithInput from '../components/CardWithInput.astro';
-import Button from '../components/Button.astro';
-import { ViewTransitions } from 'astro:transitions';
+
+// Importing database tools.
+import { app } from "../firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from 'firebase-admin/firestore';
+
+// Importing user interface and user functions.
+import type { userModel } from '../pages/api/interfaces/user';
+import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
+
+// Initalizing the method that will allow us to get the user.
+const auth = getAuth(app);
+
+// Check current session 
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").value);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+const userSnapshot = await getUserSnapshot(user)
+
+if (!userSnapshot.exists) {
+  return Astro.redirect("/404");
+}
+// Getting the current user.
+const currentUser = userSnapshot.data() as userModel;
+
 import '../styles.css';
 ---
 
 <Layout title="¿Como Se Dice?">
-	<main class="snap-center">
+	<!-- Navigation bar -->
+	<Navbar 
+    username={ currentUser.username }, 
+    email={ currentUser.email }, 
+    userImage='/src/pages/images/mario.png'
+    />
+
+	<!-- Card elements. -->
+	<main class="snap-center bg-white border-gray-200 dark:bg-gray-900">
 	    <svg>
 			<defs>
 				<linearGradient
@@ -23,7 +61,7 @@ import '../styles.css';
 				>
 			</defs>
 		</svg>
-		<h1><span class="snap-center flex drop-shadow-md text-gradient rounded-xl dark:bg-slate-800 flex justify-center space-x-4 text-2xl">¿Como Se Dice?</span></h1>
+
 		<ul role="list" class="link-card-grid drop-shadow-xl">
 			<Card
 				href="/singleplayer"
@@ -35,7 +73,7 @@ import '../styles.css';
 				href="/multiplayer"
 				title="Start Multiplayer Room"
 				body="Start a room to play against friends 😈"
-			/>
+			/> 
 			<Card
 				href="daily"
 				title="Start Daily Challenge"
@@ -49,5 +87,3 @@ import '../styles.css';
 		</ul>
 	</main>
 </Layout>
-
-

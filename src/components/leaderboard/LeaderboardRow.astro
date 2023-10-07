@@ -1,0 +1,37 @@
+---
+/**
+ * Component that will be used to create each of the rows that will be in the leaderboard table that is in 
+ * leaderboard.astro.
+ */
+import type { string } from 'astro/zod';
+interface Props {
+	username: string;
+	email: string;
+  bestScore: string;
+  gamesPlayed: string;
+  rank: string;
+}
+
+const { username, email, bestScore, gamesPlayed, rank } = Astro.props;
+---
+
+<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+  <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      <img class="w-10 h-10 rounded-full" src="/src/pages/images/mario.png" alt="Jese image">
+      <div class="pl-3">
+          <div class="text-base font-semibold">{ username }</div>
+          <div class="font-normal text-gray-500">{ email }</div>
+      </div>
+  </th>
+  <td class="px-6 py-4">
+      { rank }
+  </td>
+  <td class="px-6 py-4">
+    { bestScore }
+  </td>
+  <td class="px-6 py-4">
+    { gamesPlayed }
+  </td>
+</tr>
+
+<script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
