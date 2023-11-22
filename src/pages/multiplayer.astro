@@ -1,13 +1,51 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/navigationBar/Navbar.astro';
 import Card from '../components/Card.astro';
 import Button from './Button.astro';
 import { ViewTransitions } from 'astro:transitions';
+
+// Importing database tools.
+import { app } from "../firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from 'firebase-admin/firestore';
+
+// Importing user interface and user functions.
+import type { userModel } from '../pages/api/interfaces/user';
+import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
+
+// Initalizing the method that will allow us to get the user.
+const auth = getAuth(app);
+
+// Check current session 
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").value);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+const userSnapshot = await getUserSnapshot(user)
+
+if (!userSnapshot.exists) {
+  return Astro.redirect("/404");
+}
+// Getting the current user.
+const currentUser = userSnapshot.data() as userModel;
+
 import '../styles.css'
 ---
 
 
 <Layout title="¿Como Se Dice?">
+	<Navbar 
+      username={ currentUser.username }, 
+      email={ currentUser.email }, 
+      userImage='/src/pages/images/mario.png'
+    />
+
 	<main>
 			<defs>
 				<linearGradient
@@ -24,9 +62,9 @@ import '../styles.css'
 			</defs>
 		</svg>
         <h1><span class="text-gradient">¿Como Se Dice?</span></h1>
-		<SettingsForm
+		<!-- <SettingsForm
 		title="Multiplayer"
-		></SettingsForm>
+		></SettingsForm> -->
 
 	</main>
 </Layout>
