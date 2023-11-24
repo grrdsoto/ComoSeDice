@@ -1,18 +1,16 @@
 ---
 import '../styles.css';
 interface Props {
-	title: string;
 	wordClass: string;
 }
 
-const { title, wordClass } = Astro.props;
+const { wordClass } = Astro.props;
 ---
 
 <div class="link-card" >
 	<a>
 		<h2 id="nextWordContainer" class="justify-center item-center">
-			¿Como Se Dice? gato
-			<span></span>
+			Como Se Dice gato?
 		</h2>
 		<p>
 			{wordClass}
@@ -29,7 +27,6 @@ const { title, wordClass } = Astro.props;
 		background-size: 400%;
 		border-radius: 7px;
 		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 	}
 	.link-card > a {
@@ -45,17 +42,9 @@ const { title, wordClass } = Astro.props;
 	h2 {
 		margin: 0;
 		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 	p {
 		margin-top: 0.5rem;
 		margin-bottom: 0;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-dark);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
 	}
 </style>
