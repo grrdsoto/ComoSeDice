@@ -1,6 +1,6 @@
 /**
- * Endpoint is a dynamic endpoint which has the path of 'id'. 'id' is then used in order
- * for us to get the correct user in order to update their high score if required. 
+ * Dynamic endpoint which has the path of '[id]'. '[id]' is then used in order
+ * to get the correct user in order to update the users high score if required. 
  */
 
 import type { APIRoute } from "astro";

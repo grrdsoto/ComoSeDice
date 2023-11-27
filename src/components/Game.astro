@@ -1,4 +1,14 @@
 ---
+/**
+ * Interface used to bring in the userSnapshot of the current user that is logged in.
+ * This facilitates getting the high score and updating the high score when needed.
+ */
+interface Props {
+	userSnapshot: any;
+}
+
+const { userSnapshot } = Astro.props;
+
 import NextWordCard from "./NextWordCard.astro";
 import WordGuessField from "./WordGuessField.astro";
 import Button from "./Button.astro";
@@ -11,14 +21,19 @@ import { checkCookieSessionAndGetUser } from '../pages/api/users/user'
 const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").value);
 
 const id = user.uid;
+
+// Gets the words from the api hosted in localhost.
+const response = await fetch("http://localhost:4321/api/words.json");
+const words = await response.json();
+const firstWord = words[0].spanish
 ---
 
 
-<NextWordCard title="something"></NextWordCard>
+<NextWordCard wordClass={firstWord}></NextWordCard>
 <WordGuessField/>
-<Button class='justify-center' title="Guess"></Button>
+<!-- <Button class='justify-center' title="Guess"></Button> -->
 
-<!-- <HelloWorld client:idle id={id} /> -->
+<HelloWorld client:idle id={ id } user={ userSnapshot } wordsMap={ words }/>
 
 <script>
 

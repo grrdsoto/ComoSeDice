@@ -1,5 +1,4 @@
 ---
-
 import GameLayout from '../layouts/GameLayout.astro';
 import Navbar from '../components/navigationBar/Navbar.astro';
 import Game from '../components/Game.astro';
@@ -33,7 +32,6 @@ if (!userSnapshot.exists) {
 // Getting the current user.
 const currentUser = userSnapshot.data() as userModel;
 console.log("CurrentUser " + user.uid)
-const id = user.uid;
 
 import '../styles.css'
 import Layout from '../layouts/Layout.astro';
@@ -81,7 +79,7 @@ import Layout from '../layouts/Layout.astro';
 			</div>
 
 
-			<Game/>
+			<Game userSnapshot={ currentUser }/>
 		</main>
 	</GameLayout>
 </Layout>

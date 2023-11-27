@@ -1,6 +1,6 @@
-export async function GET({ params }: any) {
-    return {
-        body: JSON.stringify([
+export async function GET() {
+    return new Response (
+        JSON.stringify([
             { 
                 spanish: "gato",
                 english: "cat" 
@@ -42,5 +42,5 @@ export async function GET({ params }: any) {
                 english: "flower" 
             }
         ])
-    }
+    )
 }
