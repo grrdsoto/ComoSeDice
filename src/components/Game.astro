@@ -33,95 +33,95 @@ const firstWord = words[0].spanish
 <WordGuessField/>
 <!-- <Button class='justify-center' title="Guess"></Button> -->
 
-<HelloWorld client:idle id={ id } user={ userSnapshot } wordsMap={ words }/>
+<HelloWorld client:idle id={ id } user={ userSnapshot } wordsMap={words}/>
 
 <script>
 
-    import confetti from "canvas-confetti"
-    import "../styles.css"
+    // import confetti from "canvas-confetti"
+    // import "../styles.css"
 
-    // Gets the words from the api hosted in localhost.
-    const response = await fetch("http://localhost:4321/api/words.json");
-    const words = await response.json();
+    // // Gets the words from the api hosted in localhost.
+    // const response = await fetch("http://localhost:4321/api/words.json");
+    // const words = await response.json();
 
-    let currentWordIndex = 0;
+    // let currentWordIndex = 0;
 
-    let currentNumberOfLives = 3;
-    let correctNumberOfGuesses = 0;
+    // let currentNumberOfLives = 3;
+    // let correctNumberOfGuesses = 0;
 
-    let nextWordContainer = document.getElementById('nextWordContainer') as HTMLHeadingElement;
-    let guessField = document.getElementById('guessField') as HTMLInputElement;
-    let guessButton = document.getElementById('guessButton') as HTMLButtonElement;
-    let resultDiv = document.querySelectorAll('result');
+    // let nextWordContainer = document.getElementById('nextWordContainer') as HTMLHeadingElement;
+    // let guessField = document.getElementById('guessField') as HTMLInputElement;
+    // let guessButton = document.getElementById('guessButton') as HTMLButtonElement;
+    // let resultDiv = document.querySelectorAll('result');
 
-    let numberOfLives = document.getElementById('numberOfLives') as HTMLParagraphElement;
+    // let numberOfLives = document.getElementById('numberOfLives') as HTMLParagraphElement;
 
-    guessButton.addEventListener('click', () => { 
-        checkAnswer();
-    });
+    // guessButton.addEventListener('click', () => { 
+    //     checkAnswer();
+    // });
 
-    document.addEventListener('keydown', function (e){
-        console.log('pressed a key')
-        if (e.key === 'Enter'){
-            checkAnswer();
-        }
-    });
+    // document.addEventListener('keydown', function (e){
+    //     console.log('pressed a key')
+    //     if (e.key === 'Enter'){
+    //         checkAnswer();
+    //     }
+    // });
 
-    function checkAnswer(){
-        const userGuess = guessField.value.toLowerCase();
-        console.log("Print userGuess " + userGuess);
-        const currentWord = words[currentWordIndex];
-        console.log("Print currentWord " + currentWord.spanish.toLowerCase());
+    // function checkAnswer(){
+    //     const userGuess = guessField.value.toLowerCase();
+    //     console.log("Print userGuess " + userGuess);
+    //     const currentWord = words[currentWordIndex];
+    //     console.log("Print currentWord " + currentWord.spanish.toLowerCase());
 
-        if (userGuess === currentWord.english.toLowerCase()) {
-            console.log("Correct plus one point");
-            confetti();
-            changeColor("Correct");
-            correctNumberOfGuesses++
-            console.log("CorrectNumberOfGuesses " + correctNumberOfGuesses);
-            currentWordIndex++;
+    //     if (userGuess === currentWord.english.toLowerCase()) {
+    //         console.log("Correct plus one point");
+    //         confetti();
+    //         changeColor("Correct");
+    //         correctNumberOfGuesses++
+    //         console.log("CorrectNumberOfGuesses " + correctNumberOfGuesses);
+    //         currentWordIndex++;
 
-            displayNextWord();
+    //         displayNextWord();
 
-        } else {
-            console.log("Not correct");
-            guessField.value = '';
+    //     } else {
+    //         console.log("Not correct");
+    //         guessField.value = '';
 
-            currentNumberOfLives--;
-            numberOfLives.innerText = "Lives: " + currentNumberOfLives.toString();
-            // resultDiv.textContent = 'Incorrect. Try again.';
-            changeColor("Incorrect");
-        }
-    }
+    //         currentNumberOfLives--;
+    //         numberOfLives.innerText = "Lives: " + currentNumberOfLives.toString();
+    //         // resultDiv.textContent = 'Incorrect. Try again.';
+    //         changeColor("Incorrect");
+    //     }
+    // }
 
-    /**
-     * This will update the "nextWordContainer" and display the next word to guess.
-     */
-    function displayNextWord() {
-        console.log("In displayNextWord") 
-        if (currentWordIndex < words.length) {
-            console.log("Here")
-            nextWordContainer.textContent = "Como Se Dice " + words[currentWordIndex].spanish + "?";
-            guessField.value = '';
-            resultDiv.textContent = '';
-        } else {
-            nextWordContainer.textContent = 'You Win!';
-            guessField.style.display = 'none';
-            guessButton.style.display = 'none';
-      } 
-    }
+    // /**
+    //  * This will update the "nextWordContainer" and display the next word to guess.
+    //  */
+    // function displayNextWord() {
+    //     console.log("In displayNextWord") 
+    //     if (currentWordIndex < words.length) {
+    //         console.log("Here")
+    //         nextWordContainer.textContent = "Como Se Dice " + words[currentWordIndex].spanish + "?";
+    //         guessField.value = '';
+    //         resultDiv.textContent = '';
+    //     } else {
+    //         nextWordContainer.textContent = 'You Win!';
+    //         guessField.style.display = 'none';
+    //         guessButton.style.display = 'none';
+    //   } 
+    // }
 
-    /**
-     * Function that changes the collor of the "nextWordContainer to red, if correct, and green, if incorrect."
-     * 
-     * @param choice correct or incorrect.
-     */
-    function changeColor(choice: string){
-        if (choice == "Correct"){
-            nextWordContainer.parentElement.style.backgroundColor = 'green';
-        } else if (choice == "Incorrect"){
-            console.log("red");
-            nextWordContainer.parentElement.style.backgroundColor = 'red';
-        }        
-    }
+    // /**
+    //  * Function that changes the collor of the "nextWordContainer to red, if correct, and green, if incorrect."
+    //  * 
+    //  * @param choice correct or incorrect.
+    //  */
+    // function changeColor(choice: string){
+    //     if (choice == "Correct"){
+    //         nextWordContainer.parentElement.style.backgroundColor = 'green';
+    //     } else if (choice == "Incorrect"){
+    //         console.log("red");
+    //         nextWordContainer.parentElement.style.backgroundColor = 'red';
+    //     }        
+    // }
 </script>
