@@ -2,7 +2,7 @@
 interface Props {
 	title: string;
 }
-
+import "../styles.css";
 const { title } = Astro.props;
 ---
 
@@ -21,21 +21,4 @@ const { title } = Astro.props;
 		<slot />
 	</body>
 </html>
-<style is:global>
-	:root {
-		--accent: 70,150,255;
-		--accent-light: 255,255,255;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, rgb(255, 255, 255) 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #111827;
-		background-size: 224px;
-		align-content: center;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
-</style>
+

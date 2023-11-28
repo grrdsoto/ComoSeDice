@@ -71,8 +71,8 @@ const testingArray = await getFiveBestTimedScores()
         
         <tbody>
           <LeaderboardRow 
-            username = { testingArray[0].username };
-            email = { testingArray[0].email };
+            username = { testingArray[0].name };
+            email = { testingArray[0].username };
             bestScore = { testingArray[0].timedGameMode.bestScore };
             gamesPlayed = { testingArray[0].timedGameMode.gamesPlayed };
             rank = "# 1";
