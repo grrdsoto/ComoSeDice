@@ -2,7 +2,7 @@
 import tailwindConfig from "../../tailwind.config.cjs"; 
 const { title } = Astro.props;
 ---
-<form class="text-center border-2 p-10 rounded-lg justify-center z-10">
+<form class="bg-white text-center border-2 p-10 sm:rounded-lg justify-center relative overflow-x-auto shadow-md sm:rounded-lg">
     <div class="space-y-4">
         <h1 class="text-black">{title}</h1>
         <label class="flex items-center space-x-2">
