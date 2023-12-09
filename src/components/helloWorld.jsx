@@ -34,6 +34,7 @@ export default function Counter(props) {
         const userGuess = guessField.value.toLowerCase();
         console.log("Print userGuess " + userGuess);
         const currentWord = words[currentWordIndex];
+
         console.log("Print currentWord " + currentWord.spanish.toLowerCase());
         
         if (userGuess === currentWord.english.toLowerCase()) {
@@ -46,7 +47,7 @@ export default function Counter(props) {
 
             if (currentWordIndex < words.length) {
                 console.log("Here")
-                nextWordContainer.textContent = "Como Se Dice " + words[currentWordIndex].spanish + "?";
+                nextWordContainer.textContent = "Como Se Dice " + words[currentWordIndex].spanish + "(" + words[currentWordIndex].type + ")" + "?";
                 guessField.value = '';
                 resultDiv.textContent = '';
             } else {

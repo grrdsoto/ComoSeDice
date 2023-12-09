@@ -23,13 +23,14 @@ const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").val
 const id = user.uid;
 
 // Gets the words from the api hosted in localhost.
-const response = await fetch("http://localhost:4321/api/words.json");
+const response = await fetch("http://localhost:4336/api/words.json");
 const words = await response.json();
-const firstWord = words[0].spanish
+const firstWord = words[0].spanish;
+const firstWordType = words[0].type;
 ---
 
 
-<NextWordCard wordClass={firstWord}></NextWordCard>
+<NextWordCard class="content-around" word={firstWord} wordType={firstWordType}></NextWordCard>
 <WordGuessField/>
 <!-- <Button class='justify-center' title="Guess"></Button> -->
 

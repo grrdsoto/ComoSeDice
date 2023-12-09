@@ -1,16 +1,17 @@
 ---
 import '../styles.css';
 interface Props {
-	wordClass: string;
+	word: string;
+	wordType: string;
 }
-import "../../styles.css";
-const { wordClass } = Astro.props;
+import "../styles.css";
+const { word, wordType } = Astro.props;
 ---
 
 <div class="link-card" >
 	<a>
 		<h2 id="nextWordContainer" class="justify-center item-center">
-			Como Se Dice {wordClass}?
+			¿Como Se Dice {word} ({wordType})?
 		</h2>
 	</a>
 </div>
@@ -19,7 +20,7 @@ const { wordClass } = Astro.props;
 		list-style: none;
 		display: flex;
 		padding: 1px;
-		background-color: #65bfff;
+		background-color: #white;
 		background-image: none;
 		background-size: 400%;
 		border-radius: 7px;
@@ -33,7 +34,7 @@ const { wordClass } = Astro.props;
 		padding: calc(1.5rem - 1px);
 		border-radius: 8px;
 		color: rgb(0, 0, 0);
-		background-color: #65bfff;
+		background-color: #white;
 		opacity: 0.8;
 	}
 	h2 {
