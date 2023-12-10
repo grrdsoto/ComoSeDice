@@ -3,43 +3,53 @@ export async function GET() {
         JSON.stringify([
             { 
                 spanish: "gato",
-                english: "cat" 
+                english: "cat",
+                type: "noun"
             },
             { 
                 spanish: "perro", 
-                english: "dog" 
+                english: "dog",
+                type: "noun"
             },
             { 
                 spanish: "casa",
-                english: "house" 
+                english: "house",
+                type: "noun"
             },
             { 
                 spanish: "sol", 
-                english: "sun" 
+                english: "sun",
+                type: "noun"
             },
             { 
                 spanish: "agua", 
-                english: "water" 
+                english: "water",
+                type: "noun"
             },
             { 
                 spanish: "amarillo", 
-                english: "yellow" 
+                english: "yellow",
+                type: "noun" 
             },
             { 
                 spanish: "manzana", 
-                english: "apple" 
+                english: "apple",
+                type: "noun"
             },
             { 
                 spanish: "rojo", 
-                english: "red"
+                english: "red",
+                type: "noun"
             },
             { 
                 spanish: "arbol", 
-                english: "tree" 
+                english: "tree",
+                type: "noun" 
             },
             { 
                 spanish: "flor", 
-                english: "flower" 
+                english: "flower",
+                type: "noun" 
             }
         ])
     )
