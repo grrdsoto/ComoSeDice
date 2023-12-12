@@ -85,6 +85,7 @@ export default function Counter(props) {
         let guessField = document.getElementById('guessField');
         let scoreID = document.getElementById("score");
         let numberOfLives = document.getElementById('numberOfLives');
+        let playAgainButton = document.getElementById("playAgainButton");
 
         const userGuess = guessField.value.toLowerCase();
         const currentWord = words[currentWordIndex];
@@ -102,9 +103,13 @@ export default function Counter(props) {
 
             scoreID.innerHTML = "Score: " + correctNumberOfGuesses.toString();
 
-            // The user got 10 correct words with remaining lives.
+            /* 
+            The user got 10 correct words with remaining lives. Meaning we tell them they won and we display the 'play again'
+            button so they can play play again
+            */
             if (correctNumberOfGuesses == 10) {
                 determineOutcome(nextWordContainer, guessField, guessButton, 'You Win!');
+                playAgainButton.style.display = "inline";
             }
             /*
             The user got the correct answer, they haven't reached the 10 points to win and there are still words in the words map to guess.
@@ -122,9 +127,13 @@ export default function Counter(props) {
             numberOfLives.innerText = "Lives: " + currentNumberOfLives.toString();
             nextWordContainer.parentElement.style.backgroundColor = 'red';
 
-            // The user got the wrong answer and if the user has 0 lives, then they lose the game and have to try again. 
+            /* 
+            The user got the wrong answer and if the user has 0 lives, then they lose the game and the play again button will be
+            displayed so they can play again.
+            */
             if (currentNumberOfLives == 0) {
                 determineOutcome(nextWordContainer, guessField, guessButton, 'You ran out of lives, try again.');
+                playAgainButton.style.display = "inline";
             /* 
             The user got the wrong answer and if the user has lives left, then we move on to the next word meaning we will increase 
             the 'currentWordIndex' by one.
@@ -140,7 +149,8 @@ export default function Counter(props) {
         <div>
             <form onSubmit={handleClick}>
                 <input type="text" id="guessField" className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
-                <button onClick={handleClick} id="guessButton" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Guess</button>
+                <button style={{ display: 'inline' }}onClick={handleClick} id="guessButton" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Guess</button>
+                <button style={{ display: 'none' }} onClick={() => window.location.reload(false)} id="playAgainButton" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Play again</button>
             </form>
         </div>
         
