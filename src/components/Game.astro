@@ -10,11 +10,9 @@ interface Props {
 const { userSnapshot } = Astro.props;
 
 import NextWordCard from "./NextWordCard.astro";
-import WordGuessField from "./WordGuessField.astro";
-import Button from "./Button.astro";
 
 // REACT
-import HelloWorld from '../components/helloWorld.jsx';
+import SinglePlayer from './singlePlayerNormalGame.jsx';
 
 import { checkCookieSessionAndGetUser } from '../pages/api/users/user'
 
@@ -25,13 +23,12 @@ const id = user.uid;
 // Gets the words from the api hosted in localhost.
 const response = await fetch("http://localhost:4321/api/words.json");
 const words = await response.json();
+
 const firstWord = words[0].spanish;
 const firstWordType = words[0].type;
 ---
 
 
-<NextWordCard class="content-around" word={firstWord} wordType={firstWordType}></NextWordCard>
-<!-- <WordGuessField/> -->
-<!-- <Button class='justify-center' title="Guess"></Button> -->
+<NextWordCard word={ firstWord } wordType={ firstWordType }></NextWordCard>
 
-<HelloWorld client:idle id={ id } user={ userSnapshot } wordsMap={words}/>
+<SinglePlayer client:idle id={ id } user={ userSnapshot } wordsMap={ words }/>

@@ -30,31 +30,33 @@ async function updateBestScore(url, score) {
 }
 
 /**
- * Function that allows us to handle the game logic. props contains all 3 paramaters, i.e. id, user, and wordsMap.
- * To get the parameters do props.id, props.user, props.wordsMap.
+ * Function that handles the game logic. 'props' contains all 3 paramaters, i.e. id, user, and wordsMap.
+ * To get the values of the parameters use dot notation: i.e. props.id, props.user, props.wordsMap.
  * 
  * @param { id } - id of the user that is logged in.
  * @param { user } - user snapshot that contains the information of the user that is logged in. 
  * @param { wordsMap } - word to use when updated.
- * @returns 
  */
 export default function Counter(props) {
 
     let url = "http://localhost:4321/api/users/" + props.id;
 
+    // All the words possible to use in the game.
+    let words = props.wordsMap
+
+    // words already come randomized so we can start with the first index. i.e. 0
     let currentWordIndex = 0;
 
     let currentNumberOfLives = 3;
     let correctNumberOfGuesses = 0;
 
-    let words = props.wordsMap
-
     const handleClick = (e) => {
         // This prevents the eventHandler from refershing the page. We don't want the page to refresh until the game is finished.
         e.preventDefault();
+
         let nextWordContainer = document.getElementById('nextWordContainer');
         let guessField = document.getElementById('guessField');
-
+        let scoreID = document.getElementById("score");
         let numberOfLives = document.getElementById('numberOfLives');
 
         const userGuess = guessField.value.toLowerCase();
@@ -62,13 +64,17 @@ export default function Counter(props) {
         
         /* 
         The user got the correct answer, that means that there will be confetti, the background will turn green, 'correctNumberOfGuesses'
-        and 'currentWordIndex' will be incremented by one.
+        and 'currentWordIndex' will be incremented by one. The score will be updated as well.
         */
         if (userGuess === currentWord.english.toLowerCase()) {
             confetti();
+
             nextWordContainer.parentElement.style.backgroundColor = 'green';
+            
             correctNumberOfGuesses++
             currentWordIndex++;
+
+            scoreID.innerHTML = "Score: " + correctNumberOfGuesses.toString();
 
             /*
             The user got the correct answer and there are still words in the words map to guess. Meaning the nextWordContainer will be updated with the new word
@@ -89,10 +95,6 @@ export default function Counter(props) {
                 */
                 if (correctNumberOfGuesses > props.user.normalGameMode.bestScore) {
                     updateBestScore(url, correctNumberOfGuesses);
-
-                    let bestScoreID = document.getElementById("bestScore");
-                    bestScoreID.innerHTML = "Best score: " + correctNumberOfGuesses;
-
                 }
 
                 nextWordContainer.innerHTML = 'You Win!';
@@ -108,10 +110,9 @@ export default function Counter(props) {
 
             currentNumberOfLives--;
             numberOfLives.innerText = "Lives: " + currentNumberOfLives.toString();
-            // resultDiv.textContent = 'Incorrect. Try again.';
             nextWordContainer.parentElement.style.backgroundColor = 'red';
 
-            // If the user has 0 lives, then they lose the game and have to restart. 
+            // If the user has 0 lives, then they lose the game and have to try again. 
             if (currentNumberOfLives == 0) {
                 nextWordContainer.innerHTML = 'You ran out of lives, try again.'
 
