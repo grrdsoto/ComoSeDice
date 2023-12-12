@@ -1,5 +1,11 @@
 import listWords from "./words";
 
+/**
+ * Will randomize an array so we can get a random array everytime.
+ * 
+ * @param array to be shuffled.
+ * @returns randomized array.
+ */
 function shuffle(array: any) {
     let currentIndex = array.length,  randomIndex;
   
@@ -18,7 +24,7 @@ function shuffle(array: any) {
     return array;
   }
 
-// Endpoint that is called that will return a json object with 10 words.
+// Endpoint that is called that will return a json object with randomized array.
 export async function GET() {
     let randomizedArray = shuffle(listWords);
     console.log("Words after being randomized: " + randomizedArray);
