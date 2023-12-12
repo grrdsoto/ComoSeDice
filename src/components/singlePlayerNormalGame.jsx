@@ -30,6 +30,33 @@ async function updateBestScore(url, score) {
 }
 
 /**
+ * Determines the message that will be posted to the client. Whether they won or lost and they have to try again. 
+ * 
+ * @param { innerHTML } container in which the message will be set.
+ * @param { InputHTMLAttributes } guessField HTML input attribute.
+ * @param { ButtonHTMLAttributes } guessButton HTML button attribute.
+ * @param { String } message that will be posted in the container.
+ */
+function determineOutcome(container, guessField, guessButton, message) {
+    container.innerHTML = message;
+    guessField.style.display = 'none';
+    guessButton.style.display = 'none';
+}
+
+/**
+ * Updates the container that holds the word to be guessed and clears the guess field so the user can guess again.
+ * 
+ * @param { number } index 
+ * @param { innerHTML } container in which the message will be set.
+ * @param { InputHTMLAttributes } guessField HTML input attribute.
+ * @param { List } words object containing all words available.
+ */
+function updateWord(index, container, guessField, words) {
+    container.innerHTML = "Como Se Dice " + words[index].spanish + " (" + words[index].type.italics() + ")" + "?";
+    guessField.value = '';
+}
+
+/**
  * Function that handles the game logic. 'props' contains all 3 paramaters, i.e. id, user, and wordsMap.
  * To get the values of the parameters use dot notation: i.e. props.id, props.user, props.wordsMap.
  * 
@@ -72,52 +99,39 @@ export default function Counter(props) {
             nextWordContainer.parentElement.style.backgroundColor = 'green';
             
             correctNumberOfGuesses++
-            currentWordIndex++;
 
             scoreID.innerHTML = "Score: " + correctNumberOfGuesses.toString();
 
+            // The user got 10 correct words with remaining lives.
+            if (correctNumberOfGuesses == 10) {
+                determineOutcome(nextWordContainer, guessField, guessButton, 'You Win!');
+            }
             /*
-            The user got the correct answer and there are still words in the words map to guess. Meaning the nextWordContainer will be updated with the new word
-            and the guessfield will be emptied so the user can guess again. 
+            The user got the correct answer, they haven't reached the 10 points to win and there are still words in the words map to guess.
+            Meaning the 'nextWordContainer' will be updated with the new word and the guessfield will be emptied so the user can guess again. 
             */
-            if (currentWordIndex < words.length) {
-                nextWordContainer.innerHTML = "Como Se Dice " + words[currentWordIndex].spanish + " (" + words[currentWordIndex].type.italics() + ")" + "?";
-                guessField.value = '';
-            /*
-            The user got the correct answer and there are no more words to guess. This also means they have not run out of lives so they have won the game.
-            So we let them know they have won!
-            */
-            } else {
-                /*
-                The user won the game, so now we check if their correctNumberOfGuesses was higher than their best score.
-                If it is higher than their high score, then it is updated in the UI and we make a call to the database
-                to update their high score.
-                */
-                if (correctNumberOfGuesses > props.user.normalGameMode.bestScore) {
-                    updateBestScore(url, correctNumberOfGuesses);
-                }
-
-                nextWordContainer.innerHTML = 'You Win!';
-
-                guessField.style.display = 'none';
-                guessButton.style.display = 'none';
-          } 
+            else if (currentWordIndex < words.length) {
+                currentWordIndex++;
+                updateWord(currentWordIndex, nextWordContainer, guessField, words);
+            }
         /*
         The user got the wrong answer, meaning we will decrease the currentNumberOfLives by one.
         */
         } else {
-            guessField.value = '';
-
             currentNumberOfLives--;
             numberOfLives.innerText = "Lives: " + currentNumberOfLives.toString();
             nextWordContainer.parentElement.style.backgroundColor = 'red';
 
-            // If the user has 0 lives, then they lose the game and have to try again. 
+            // The user got the wrong answer and if the user has 0 lives, then they lose the game and have to try again. 
             if (currentNumberOfLives == 0) {
-                nextWordContainer.innerHTML = 'You ran out of lives, try again.'
-
-                guessField.style.display = 'none';
-                guessButton.style.display = 'none';
+                determineOutcome(nextWordContainer, guessField, guessButton, 'You ran out of lives, try again.');
+            /* 
+            The user got the wrong answer and if the user has lives left, then we move on to the next word meaning we will increase 
+            the 'currentWordIndex' by one.
+            */
+            } else {
+                currentWordIndex++;
+                updateWord(currentWordIndex, nextWordContainer, guessField, words);
             }
         }
     }
