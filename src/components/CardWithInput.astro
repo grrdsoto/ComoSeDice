@@ -7,7 +7,7 @@ import "../styles.css";
 const { roomCode, title, body } = Astro.props;
 ---
 
-<li class="link-card">
+<li class="link-card flex items-center justify-center h-48 ">
 	<a>
 		<h2>
 			{title}
@@ -15,7 +15,7 @@ const { roomCode, title, body } = Astro.props;
 		</h2>
 		<form>
 		<label> Room Code: </label><input class="rounded-sm outline	" type="text" id="roomCode" size=4 name="roomCode" maxlength=4>
-		<button class="content-center">Go</button>
+		<button>Go</button>
 		</form>
 	</a>
 </li>
