@@ -9,6 +9,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const usersRef = db.collection("users");
 
+
 /**
  * Checks the cookie that was created when the user signed in and authenticates it.
  * 
@@ -31,17 +32,3 @@ export async function getUserSnapshot(user: any) {
     const userSnapshot = await usersRef.doc(user.uid).get();
     return userSnapshot;
 }
-
-
-// export async function updateBestScore(userID: any, updatedScore: any) {
-//     try {
-//         // console.log("In the update score function")
-//         await usersRef.doc(userID).update({
-//             updatedScore
-//         });
-//     } catch (error) {
-//         return new Response("Something went wrong", {
-//             status: 500,
-//         })
-//     }
-// }
