@@ -7,16 +7,17 @@ import "../styles.css";
 const { roomCode, title, body } = Astro.props;
 ---
 
-<li class="link-card flex items-center justify-center h-48 ">
-	<a>
+<li class="link-card h-48">
+	<a class="h-screen flex items-center justify-center">
 		<h2>
 			{title}
 			<span>&rarr;</span>
-		</h2>
+		
 		<form>
 		<label> Room Code: </label><input class="rounded-sm outline	" type="text" id="roomCode" size=4 name="roomCode" maxlength=4>
-		<button>Go</button>
 		</form>
-	</a>
+		<button class="bg-blue-700 rounded-md justify-center items-center mt-2 w-12 text-center">Go</button>
+	</h2>
+</a>
 </li>
 

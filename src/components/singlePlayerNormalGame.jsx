@@ -52,7 +52,7 @@ function determineOutcome(container, guessField, guessButton, message) {
  * @param { List } words object containing all words available.
  */
 function updateWord(index, container, guessField, words) {
-    container.innerHTML = "Como Se Dice " + words[index].spanish + " (" + words[index].type.italics() + ")" + "?";
+    container.innerHTML = "Como Se Dice "  + words[index].spanish.bold() + " (" + words[index].type.italics() + ")" + "?";
     guessField.value = '';
 }
 
@@ -66,7 +66,7 @@ function updateWord(index, container, guessField, words) {
  */
 export default function Counter(props) {
 
-    let url = "http://localhost:4321/api/users/" + props.id;
+    let url = "http://localhost:4322/api/users/" + props.id;
 
     // All the words possible to use in the game.
     let words = props.wordsMap
@@ -146,10 +146,10 @@ export default function Counter(props) {
     }
 
     return (
-        <div>
+        <div className="flex justify-center items-center">
             <form onSubmit={handleClick}>
-                <input type="text" id="guessField" className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
-                <button style={{ display: 'inline' }}onClick={handleClick} id="guessButton" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Guess</button>
+                <input type="text" id="guessField" className="block p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-96 "></input>
+                <button style={{ display: 'inline' }}onClick={handleClick} id="guessButton" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-20 mt-4">Guess</button>
                 <button style={{ display: 'none' }} onClick={() => window.location.reload(false)} id="playAgainButton" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Play again</button>
             </form>
         </div>
