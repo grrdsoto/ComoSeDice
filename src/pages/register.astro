@@ -1,5 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getImagesMap } from "./images/images";
+import MakingImageGrid from "../components/gallery.jsx";
+import TestingImageGrid from "../components/galleryTesting.jsx";
+
+const allUrls = await getImagesMap();
+
+console.log("My urls: " + allUrls)
+console.log("My urls length: " + allUrls.length)
+
+
 ---
 <Layout title="Register">
     <section class="bg-gray-50 dark:bg-gray-900">
@@ -10,6 +20,16 @@ import Layout from "../layouts/Layout.astro";
                         Create Como Se Dice account
                     </h1>
                     <form class="space-y-4 md:space-y-6" action="/api/auth/register" method="post">
+                        <div class="flex items-center justify-center mt-5">
+                            <img class="w-24 h-24 mb-3 shadow-lg hover:opacity-40" src="/src/pages/images/add-photo.png" />
+                        </div>  
+
+                        <!-- <div class="flex items-center justify-center">
+                            <button class="w-28 hover:bg-gray-700 text-white text-sm rounded text-center">Profile picture</button>
+                        </div> -->
+
+                        <MakingImageGrid client:idle urls={ allUrls }/>
+
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                             <input name="name" id="name" placeholder="Enter your name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">

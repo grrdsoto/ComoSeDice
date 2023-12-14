@@ -11,9 +11,6 @@ import { getAuth } from "firebase-admin/auth";
 import type { userModel } from '../pages/api/interfaces/user';
 import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
 
-// Initalizing the method that will allow us to get the user.
-const auth = getAuth(app);
-
 // Check current session
 if (!Astro.cookies.has("session")) {
   return Astro.redirect("/signin");
