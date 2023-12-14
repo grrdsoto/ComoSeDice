@@ -1,8 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getImagesMap } from "./images/images";
-import MakingImageGrid from "../components/gallery.jsx";
-import TestingImageGrid from "../components/galleryTesting.jsx";
+import ProfilePictureGrid from "../components/profilePictureGrid.jsx";
 
 const allUrls = await getImagesMap();
 
@@ -27,8 +26,9 @@ console.log("My urls length: " + allUrls.length)
                         <!-- <div class="flex items-center justify-center">
                             <button class="w-28 hover:bg-gray-700 text-white text-sm rounded text-center">Profile picture</button>
                         </div> -->
-
-                        <MakingImageGrid client:idle urls={ allUrls }/>
+                        
+                        <ProfilePictureGrid client:idle urls={ allUrls } />
+                        
 
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -57,4 +57,4 @@ console.log("My urls length: " + allUrls.length)
             </div>
         </div>
     </section>
-</Layout> 
+</Layout> ../components/profilePictureGrid.jsx
