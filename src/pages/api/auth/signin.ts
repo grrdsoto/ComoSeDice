@@ -6,16 +6,6 @@ import type { APIRoute } from "astro";
 import { app } from "../../../firebase/server";
 import { getAuth } from "firebase-admin/auth";
 
-import cron from 'node-cron';
-import { updateWordsInDatabase } from "../words/dailyChallenge";
-
-cron.schedule('*/10 * * * * *', () => {
-  const date = new Date();
-
-  console.log(`This task ran at - ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
-  updateWordsInDatabase();
-});
-
 export const GET: APIRoute = async ({ request, cookies, redirect }) => {
   const auth = getAuth(app);
 
