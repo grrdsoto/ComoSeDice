@@ -4,9 +4,17 @@ import Navbar from "../components/navigationBar/Navbar.astro";
 import Card from '../components/Card.astro';
 import CardWithInput from '../components/CardWithInput.astro';
 
+// Importing database tools.
+import { app } from "../firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from 'firebase-admin/firestore';
+
 // Importing user interface and user functions.
 import type { userModel } from '../pages/api/interfaces/user';
 import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
+
+// Initalizing the method that will allow us to get the user.
+const auth = getAuth(app);
 
 // Check current session 
 if (!Astro.cookies.has("session")) {
