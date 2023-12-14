@@ -8,15 +8,16 @@ import "../styles.css";
 const { href, title, body } = Astro.props;
 ---
 
-<li class="link-card box-content h-48">
-	<a href={href} class=" content-center">
+<li class="link-card h-48">
+	<a href={href} class="h-screen flex items-center justify-center">
 		<h2>
 			{title}
 			<span>&rarr;</span>
-		</h2>
+		
 		<p>
 			{body}
 		</p>
+	</h2>
 	</a>
 </li>
 
