@@ -12,7 +12,7 @@ const { userSnapshot } = Astro.props;
 import NextWordCard from "./NextWordCard.astro";
 
 // REACT
-import SinglePlayer from './singlePlayerNormalGame.jsx';
+import SinglePlayer from './react/singlePlayerNormalGame.jsx';
 
 import { checkCookieSessionAndGetUser } from '../pages/api/users/user'
 
@@ -21,7 +21,7 @@ const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").val
 const id = user.uid;
 
 // Gets the words from the api hosted in localhost.
-const response = await fetch("http://localhost:4322/api/words.json");
+const response = await fetch("http://localhost:4321/api/words.json");
 const words = await response.json();
 
 const firstWord = words[0].spanish;
@@ -31,4 +31,4 @@ const firstWordType = words[0].type;
 
 <NextWordCard word={ firstWord } wordType={ firstWordType }></NextWordCard>
 
-<SinglePlayer client:idle id={ id } user={ userSnapshot } wordsMap={ words }/>
+<SinglePlayer client:idle id={ id } user={ userSnapshot } wordsMap={ words }/>./react/singlePlayerNormalGame.jsx

@@ -66,7 +66,7 @@ function updateWord(index, container, guessField, words) {
  */
 export default function Counter(props) {
 
-    let url = "http://localhost:4322/api/users/" + props.id;
+    let url = "http://localhost:4321/api/users/" + props.id;
 
     // All the words possible to use in the game.
     let words = props.wordsMap
