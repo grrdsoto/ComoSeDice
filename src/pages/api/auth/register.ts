@@ -11,20 +11,13 @@ import { getFirestore } from "firebase-admin/firestore";
 export const POST: APIRoute = async ({ request, redirect }) => {
   const auth = getAuth(app);
 
-  /* Get form data */
-  const formData = await request.formData();
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
-  const name = formData.get("name")?.toString();
-  const username = formData.get("username")?.toString();
+  let body = await request.json();
 
-  // Making sure that there is no missing data coming from the user.
-  if (!email || !password || !name ) {
-    return new Response(
-      "Missing form data",
-      { status: 400 }
-    );
-  }
+  let email = body.email;
+  let password = body.password;
+  let name = body.name;
+  let username = body.username;
+  let profilePictureUrl = body.profilePicture;
 
   try {
     // Create auth user.
@@ -52,17 +45,17 @@ export const POST: APIRoute = async ({ request, redirect }) => {
           gamesPlayed: 0
         },
         password: password,
-        signedIn: false,
         timedGameMode: {
           bestScore: 0,
           gamesPlayed: 0
         },
-        username: username
+        username: username,
+        profilePicture: profilePictureUrl
       });
     });
   } catch (error: any) {
     return new Response(
-      "Something went wrong",
+      "Something went wrong" + error,
       { status: 400 }
     );
   }
