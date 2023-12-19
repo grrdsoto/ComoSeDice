@@ -52,7 +52,7 @@ function determineOutcome(container, guessField, guessButton, message) {
  * @param { List } words object containing all words available.
  */
 function updateWord(index, container, guessField, words) {
-    container.innerHTML = "Como Se Dice "  + words[index].spanish.bold() + " (" + words[index].type.italics() + ")" + "?";
+    container.innerHTML = "Cómo Se Dice "  + words[index].spanish.bold() + " (" + words[index].type.italics() + ")" + "?";
     guessField.value = '';
 }
 
@@ -66,7 +66,7 @@ function updateWord(index, container, guessField, words) {
  */
 export default function Counter(props) {
 
-    let url = "http://localhost:4321/api/users/" + props.id;
+    let url = "http://localhost:4322/api/users/" + props.id;
 
     // All the words possible to use in the game.
     let words = props.wordsMap
