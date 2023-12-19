@@ -12,11 +12,11 @@ const { username, email, userImage } = Astro.props;
 ---
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between p-4">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between p-4 mx-auto">
 
-    <div class="flex items-center">
+    <div class="flex space-x-3 items-center">
       <img src="/src/pages/images/comosedicelogo.png" class="h-8 mr-3" alt="img" />
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">¿como se dice?</span>
+      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">¿cómo se dice?</span>
       </div>
       <div id="tooltip-click" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
         Developed by Gerardo Soto and Roberto Santos Hernandez. <br>
@@ -24,10 +24,10 @@ const { username, email, userImage } = Astro.props;
         <a href="https://www.flaticon.com/authors/darius-dan">Darius Dan</a> and 
         <a href="https://www.flaticon.com/authors/wahyu-adam">Wahyu Adam</a>.
         <div class="tooltip-arrow" data-popper-arrow></div>
-      </div>
-    </div>
+      </div>  
+
     
-    <div class="flex items-center md:order-2">
+    <div class="flex items-center md:order-2 w-8">
         <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
           <span class="sr-only">Open user menu</span>
           <img class="w-8 h-8 rounded-full" src={ userImage } alt="user photo">
@@ -57,7 +57,7 @@ const { username, email, userImage } = Astro.props;
           </svg>
       </button>
     </div>
-    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+    <div class="md:flex md:w-auto md:order-1  " id="navbar-user">
       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
         <li>
           <a href="/" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</a>
@@ -68,6 +68,7 @@ const { username, email, userImage } = Astro.props;
       </ul>
     </div>
     </div>
+  </div>
   </nav>
 
 <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
