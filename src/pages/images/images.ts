@@ -8,8 +8,6 @@ import { app } from "../../firebase/client";
 // Instantiates the storage in which we have our images.
 const myStorage = getStorage(app);
 
-console.log("My storage: " + myStorage);
-
 // Creates a reference to the 'profilePictures' folder, so we can manipulate it.
 const imagesRef = ref(myStorage, 'profilePictures');
 

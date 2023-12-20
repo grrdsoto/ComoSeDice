@@ -30,7 +30,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     auth user to an instance in the "users" collection.
     */
     }).then((userRecord) => {
-      console.log('Succesfully created new user:', userRecord.uid)
       const db = getFirestore(app);
       /* 
       Getting collection "users" from the database. 

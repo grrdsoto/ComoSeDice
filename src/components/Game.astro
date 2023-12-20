@@ -16,7 +16,7 @@ import SinglePlayer from './react/singlePlayerNormalGame.jsx';
 
 import { checkCookieSessionAndGetUser } from '../pages/api/users/user'
 
-const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").value);
+const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session")?.value);
 
 const id = user.uid;
 

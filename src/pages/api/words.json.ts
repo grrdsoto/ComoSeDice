@@ -31,7 +31,6 @@ function shuffle(array: any) {
 // Endpoint that is called that will return a json object with randomized array.
 export async function GET() {
     let randomizedArray = shuffle(listWords);
-    console.log("Words after being randomized: " + randomizedArray);
 
     var jsonObject = []
 

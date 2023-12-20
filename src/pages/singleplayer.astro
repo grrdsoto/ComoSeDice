@@ -10,7 +10,7 @@ import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/user
 if (!Astro.cookies.has("session")) {
   return Astro.redirect("/signin");
 }
-const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").value);
+const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session")?.value);
 
 if (!user) {
   return Astro.redirect("/signin");
@@ -23,7 +23,6 @@ if (!userSnapshot.exists) {
 }
 // Getting the current user.
 const currentUser = userSnapshot.data() as userModel;
-console.log("CurrentUser " + user.uid)
 
 import '../styles.css'
 import Layout from '../layouts/Layout.astro';
