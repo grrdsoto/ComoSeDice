@@ -1,3 +1,7 @@
+/**
+ * Endpoint that will all the words from words.json.ts so they can be used in the web application.
+ */
+
 import listWords from "./words";
 
 /**

@@ -12,7 +12,7 @@ const { userSnapshot } = Astro.props;
 import NextWordCard from "./NextWordCard.astro";
 
 // REACT
-import SinglePlayer from './singlePlayerNormalGame.jsx';
+import SinglePlayer from './react/singlePlayerNormalGame.jsx';
 
 import { checkCookieSessionAndGetUser } from '../pages/api/users/user'
 
@@ -27,7 +27,6 @@ const words = await response.json();
 const firstWord = words[0].spanish;
 const firstWordType = words[0].type;
 ---
-
 
 <NextWordCard word={ firstWord } wordType={ firstWordType }></NextWordCard>
 

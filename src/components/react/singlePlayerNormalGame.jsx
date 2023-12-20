@@ -4,7 +4,7 @@
  */
 import React from "react";
 import confetti from "canvas-confetti"
-import "../styles.css"
+import "../../styles.css"
 
 
 /**
@@ -65,9 +65,6 @@ function updateWord(index, container, guessField, words) {
  * @param { wordsMap } - word to use when updated.
  */
 export default function Counter(props) {
-
-    let url = "http://localhost:4322/api/users/" + props.id;
-
     // All the words possible to use in the game.
     let words = props.wordsMap
 

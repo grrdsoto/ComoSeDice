@@ -1,5 +1,5 @@
 /**
- * This file will handle all new users that will be created with the form that is in register.astro. It will create a new auth user
+ * Endpoint that will handle all new users that will be created with the form that is in register.astro. It will create a new auth user
  * and link the auth user to an instance in teh "users" collection.
  */
 

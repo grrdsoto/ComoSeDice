@@ -1,11 +1,6 @@
 ---
-import GameLayout from '../layouts/GameLayout.astro';
 import Navbar from '../components/navigationBar/Navbar.astro';
-import Game from '../components/Game.astro';
-
-// Importing database tools.
-import { app } from "../firebase/server";
-import { getAuth } from "firebase-admin/auth";
+import SinglePlayerGame from '../components/Game.astro';
 
 // Importing user interface and user functions.
 import type { userModel } from '../pages/api/interfaces/user';
@@ -35,48 +30,27 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="¿Como Se Dice?">
-
-	<GameLayout title="¿Como Se Dice?">
-		<Navbar
-		username={ currentUser.username },
-		email={ currentUser.email },
-		userImage={ currentUser.profilePicture }
-		/>
-		<main>
-				<defs>
-					<linearGradient
-						id="paint0_linear_1805_24383"
-						x1="247.358"
-						y1="0"
-						x2="247.358"
-						y2="622.479"
-						gradientUnits="userSpaceOnUse"
-					>
-						<stop stop-opacity="0.9"></stop>
-						<stop offset="1" stop-opacity="0.2"></stop>
-					</linearGradient>
-				</defs>
-			</svg>
-
-
-			<div class="flex flex-col items-center">
-				<div class="w-full max-w-sm ">
-					<div class="flex flex-col items-center pb-10">
-						<img class="w-32 h-32 mt-8 rounded-full shadow-lg" src={ currentUser.profilePicture } />
-						<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{ currentUser.username }</h5>
-						<div class="flex mt-4 md:mt-6">
-							<form>
-								<p id="score" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Score: 0</p>
-								<p id="numberOfLives" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Lives: 3</p>
-								<!-- <p id="numberOfRetries" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center dark:text-white">Retries: 3</p> -->
-							</form>
-						</div>
+	<Navbar
+	username={ currentUser.username },
+	email={ currentUser.email },
+	userImage={ currentUser.profilePicture }
+	/>
+	<main>
+		<div class="flex flex-col items-center">
+			<div class="w-full max-w-sm ">
+				<div class="flex flex-col items-center pb-10">
+					<img class="w-32 h-32 mt-8 rounded-full shadow-lg" src={ currentUser.profilePicture } />
+					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{ currentUser.username }</h5>
+					<div class="flex mt-4 md:mt-6">
+						<form>
+							<p id="score" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Score: 0</p>
+							<p id="numberOfLives" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Lives: 3</p>
+						</form>
 					</div>
 				</div>
 			</div>
+		</div>
 
-
-			<Game userSnapshot={ currentUser }/>
-		</main>
-	</GameLayout>
+		<SinglePlayerGame userSnapshot={ currentUser }/>
+	</main>
 </Layout>

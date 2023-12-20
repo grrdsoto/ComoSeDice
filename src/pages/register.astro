@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getImagesMap } from "./images/images";
-import ProfilePictureGrid from "../components/profilePictureGrid.jsx";
+import ProfilePictureGrid from "../components/react/profilePictureGrid.jsx";
 
 const allUrls = await getImagesMap();
 ---
@@ -18,7 +18,6 @@ const allUrls = await getImagesMap();
                         <div class="flex items-center justify-center mt-5">
                             <label for="profilePicture"></label>
                             <img id="profilePicture" src="/src/pages/images/add-photo.png" class="w-24 h-24 mb-3 shadow-lg hover:opacity-40"></img>
-                            <!-- <img id="profilePicture" class="w-24 h-24 mb-3 shadow-lg hover:opacity-40" src="/src/pages/images/add-photo.png" /> -->
                         </div>  
                         
                         <ProfilePictureGrid client:idle urls={ allUrls } />

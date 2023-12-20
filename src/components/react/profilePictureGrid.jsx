@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import "../styles.css"
+import "../../styles.css"
 
 /**
  * Function that gets the img tag with the 'profilePicture' id and updates the attribute 'src' to the new
@@ -40,16 +40,15 @@ export default function Counter(props) {
             <button className="btn w-28 bg-gray-700 hover:bg-gray-500 text-white text-sm rounded text-center mt-2" type="button" onClick={()=>document.getElementById('my_modal_5').showModal()}>Profile picture</button>
             </div>
             <dialog id="my_modal_5" className="rounded-lg max-w-lg border modal modal-bottom sm:modal-middle">
-            <div className="modal-box">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 m-4">
-                    {itemList}
-                </div>
+                <div className="modal-box">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 m-4">
+                        {itemList}
+                    </div>
 
-                <div className="modal-action">
-
-                <button className="btn" type="button" onClick={() => document.getElementById('my_modal_5').close()}>Close</button>
+                    <div className="modal-action">
+                    <button className="btn" type="button" onClick={() => document.getElementById('my_modal_5').close()}>Close</button>
+                    </div>
                 </div>
-            </div>
             </dialog>
         </div>
     );
