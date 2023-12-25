@@ -33,7 +33,7 @@ export default function Counter(props) {
     urlMap.forEach((item, index)=>{
         itemList.push( 
         <div key={index} className="flex items-center justify-center">
-            <a id="link"onClick={() => changeImageAndCloseModal(item)} href="#">  <img className="h-20 rounded-lg max-w-xs border" src={item} alt=""></img></a>
+            <a id="link" onClick={() => changeImageAndCloseModal(item)} href="#">  <img className="h-20 rounded-lg max-w-xs border" src={item} alt=""></img></a>
         </div>)
     })
 

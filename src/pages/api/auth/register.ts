@@ -53,9 +53,15 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       });
     });
   } catch (error: any) {
+    let message = "";
+
+    if (error.code == "auth/email-already-exists") {
+      message = "This email is already being used."
+    }
+
     return new Response(
       "Something went wrong" + error,
-      { status: 400 }
+      { status: 400, statusText: message }
     );
   }
   return redirect("/signin");
