@@ -1,13 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/navigationBar/Navbar.astro';
-import LeaderboardRow from '../components/leaderboard/leaderboardRow.astro';
-import TestingRows from '../components/leaderboard/testingRows.astro';
-
-// Importing database tools.
-import { app } from "../firebase/server";
-import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from 'firebase-admin/firestore';
+import LeaderboardRows from '../components/react/leaderboard.jsx'
 
 // Importing user interface and user functions.
 import type { userModel } from '../pages/api/interfaces/user';
@@ -15,9 +9,6 @@ import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/user
 
 // Importing the top X best scores for the timed game mode.
 import { getFiveBestTimedScores } from '../pages/api/users/leaderboards.ts';
-
-// Initalizing the method that will allow us to get the user.
-const auth = getAuth(app);
 
 // Check current session 
 if (!Astro.cookies.has("session")) {
@@ -45,10 +36,10 @@ const testingArray = await getFiveBestTimedScores()
   <Navbar 
     username={ currentUser.username }, 
     email={ currentUser.email }, 
-    userImage='/src/pages/images/mario.png'
+    userImage={ currentUser.profilePicture }
   />
 
-  <h1 class="flex justify-center items-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white">Leaderboard</h1>
+  <!-- <h1 class="flex justify-center items-center mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl m:text-4xl dark:text-black">Leaderboard</h1> -->
 
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -70,45 +61,8 @@ const testingArray = await getFiveBestTimedScores()
         </thead>
         
         <tbody>
-          <LeaderboardRow 
-            username = { testingArray[0].name };
-            email = { testingArray[0].username };
-            bestScore = { testingArray[0].timedGameMode.bestScore };
-            gamesPlayed = { testingArray[0].timedGameMode.gamesPlayed };
-            rank = "# 1";
-          ></LeaderboardRow>
 
-          <LeaderboardRow 
-            username = { testingArray[1].username };
-            email = { testingArray[1].email };
-            bestScore = { testingArray[1].timedGameMode.bestScore };
-            gamesPlayed = { testingArray[1].timedGameMode.gamesPlayed };
-            rank = "# 2";
-          ></LeaderboardRow>
-
-          <LeaderboardRow 
-            username = { testingArray[2].username };
-            email = { testingArray[2].email };
-            bestScore = { testingArray[2].timedGameMode.bestScore };
-            gamesPlayed = { testingArray[2].timedGameMode.gamesPlayed };
-            rank = "# 3";
-          ></LeaderboardRow>
-
-          <LeaderboardRow 
-            username = { testingArray[3].username };
-            email = { testingArray[3].email };
-            bestScore = { testingArray[3].timedGameMode.bestScore };
-            gamesPlayed = { testingArray[3].timedGameMode.gamesPlayed };
-            rank = "# 4";
-          ></LeaderboardRow>
-
-          <LeaderboardRow 
-            username = { testingArray[4].username };
-            email = { testingArray[4].email };
-            bestScore = { testingArray[4].timedGameMode.bestScore };
-            gamesPlayed = { testingArray[4].timedGameMode.gamesPlayed };
-            rank = "# 5";
-          ></LeaderboardRow>
+          <LeaderboardRows users={ testingArray }></LeaderboardRows>
 
         </tbody>
     </table>
