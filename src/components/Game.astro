@@ -21,7 +21,7 @@ const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").val
 const id = user.uid;
 
 // Gets the words from the api hosted in localhost.
-const response = await fetch("http://localhost:4322/api/words.json");
+const response = await fetch("http://localhost:4321/api/words.json");
 const words = await response.json();
 
 const firstWord = words[0].spanish;

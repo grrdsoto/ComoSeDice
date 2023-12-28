@@ -1,73 +1,49 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from "../components/navigationBar/Navbar.astro";
-import Card from '../components/Card.astro';
-import CardWithInput from '../components/CardWithInput.astro';
-
-// Importing database tools.
-import { app } from "../firebase/server";
-import { getAuth } from "firebase-admin/auth";
-
-// Importing user interface and user functions.
-import type { userModel } from '../pages/api/interfaces/user';
-import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
-
-// Initalizing the method that will allow us to get the user.
-const auth = getAuth(app);
-
-// Check current session 
-if (!Astro.cookies.has("session")) {
-  return Astro.redirect("/signin");
-}
-const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").value);
-
-if (!user) {
-  return Astro.redirect("/signin");
-}
-
-const userSnapshot = await getUserSnapshot(user)
-
-if (!userSnapshot.exists) {
-  return Astro.redirect("/404");
-}
-// Getting the current user.
-const currentUser = userSnapshot.data() as userModel;
-
-import '../styles.css';
+title: "Como Se Dice? - Word Game"
+// import '../styles.css';
 ---
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="description" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="generator" content={Astro.generator} />
+  <title href="/index">¿cómo se dice?</title>
+</head>
+  <div class="container">
+    <h1>¿cómo se dice?</h1>
+    <p>Challenge your language skills with our word game!</p>
+    <a href="/mainmenu">Play Now</a>
+  </div>
+  <style>
+    @import 'tailwindcss/base';
+    @import 'tailwindcss/components';
+    @import 'tailwindcss/utilities';
 
-<Layout title="Cómo Se Dice?">
-	<!-- Navigation bar -->
-	<Navbar 
-    username={ currentUser.username }, 
-    email={ currentUser.email }, 
-    userImage={currentUser.profilePicture}
-    />
+    body {
+      @apply bg-white text-black m-0 p-0 flex items-center justify-center h-screen;
+    }
 
-	<!-- Card elements. -->
-	<main class=" flex justify-center items-center h-fit">
-		<ul role="list" class="link-card-grid drop-shadow-xl">
-			<Card
-				href="/singleplayer"
-				title="Start Singleplayer"
-				body="Play Cómo Se Dice Alone"
-				
-			/>
-			<Card
-				href="/multiplayer"
-				title="Start Multiplayer Room"
-				body="Start a room to play against friends 😈"
-			/> 
-			<Card
-				href="daily"
-				title="Start Daily Challenge"
-				body="Get as many words right in the shortest time and see where you stack up against the world 🌐"
-			/>
-			<CardWithInput
-				title="Join Multiplayer Room"
-				roomCode="0000"
+    .container {
+      @apply text-center;
+    }
 
-			/>
-		</ul>
-	</main>
-</Layout>
+    h1 {
+      @apply text-4xl md:text-6xl font-bold mb-4;
+    }
+
+    p {
+      @apply text-lg md:text-xl mb-8;
+    }
+
+    a {
+      @apply no-underline border-2 border-black px-6 py-3 text-lg md:text-xl rounded transition duration-300 ease-in-out;
+
+      &:hover {
+        @apply bg-black text-white;
+      }
+    }
+  </style>
+</html>
