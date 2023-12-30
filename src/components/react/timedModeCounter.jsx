@@ -7,9 +7,14 @@ import { useTimer } from 'react-timer-hook';
  * @param {string} id - uid of the user that is logged in. 
  */
 function updateBestScore(id) {
-  let userScore = document.getElementById("score");
-  let bestScore = document.getElementById("bestScore");
+  let userScore = document.getElementById("timedModeScore");
+  let bestScore = document.getElementById("timedModeBestScore");
 
+  /*
+  If the user gets a high score i.e. userscore > bestscore, then the updateScore[id] endpoint will be called
+  to update the users best time score in the database. The score will be updated in the page and the 'timed mode modal'
+  will be shown.
+  */
   if (parseInt(userScore.textContent.split(" ")[1]) > parseInt(bestScore.textContent.split(" ")[2])) {
     fetch("http://localhost:4321/api/users/updateScore" + id, {
       method: "POST",
@@ -27,6 +32,17 @@ function updateBestScore(id) {
     bestScore.innerHTML = "Best score: " + userScore.textContent.split(" ")[1];
     document.getElementById("userOficialHighScore").textContent = "New High Score: " + userScore.textContent.split(" ")[1];
     document.getElementById('timedGameModeModal').showModal();
+  // If the user does not get a high score, the play again button will show.
+  } else {
+    let nextWordContainer = document.getElementById('nextWordContainer');
+    let guessField = document.getElementById('timedModeGuessField');
+    let guessButton = document.getElementById("timedModeGuessButton");
+    let playAgainButton = document.getElementById("timedModePlayAgainButton");
+
+    nextWordContainer.innerHTML = "Time up!";
+    guessField.style.display = 'none';
+    guessButton.style.display = 'none';
+    playAgainButton.style.display = "inline";
   }
 }
 

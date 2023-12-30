@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/navigationBar/Navbar.astro';
 import NextWordCard from "../components/NextWordCard.astro";
 
-import CountdownTimer from '../components/react/counter.jsx'
+import CountdownTimer from '../components/react/timedModeCounter.jsx'
 import TimedGameMode from '../components/react/timedGame.jsx';
 
 // Importing user interface and user functions.
@@ -59,8 +59,8 @@ const id = user.uid;
                     <CountdownTimer client:idle id={ id } expiryTimestamp={ time }></CountdownTimer>
 
 					<div class="flex mt-4 md:mt-6">
-						<p id="score" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Score: 0</p>
-						<p id="bestScore" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Best score: { currentUser.timedGameMode.bestScore }</p>
+						<p id="timedModeScore" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Score: 0</p>
+						<p id="timedModeBestScore" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Best score: { currentUser.timedGameMode.bestScore }</p>
 					</div>
 				</div>
 			</div>
