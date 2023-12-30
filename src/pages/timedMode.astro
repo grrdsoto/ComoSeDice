@@ -1,0 +1,74 @@
+---
+import '../styles.css'
+import Layout from '../layouts/Layout.astro';
+
+import Navbar from '../components/navigationBar/Navbar.astro';
+import NextWordCard from "../components/NextWordCard.astro";
+
+import CountdownTimer from '../components/react/counter.jsx'
+import TimedGameMode from '../components/react/timedGame.jsx';
+
+// Importing user interface and user functions.
+import type { userModel } from '../pages/api/interfaces/user';
+import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
+
+// Check current session
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session")?.value);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+const userSnapshot = await getUserSnapshot(user)
+
+if (!userSnapshot.exists) {
+  return Astro.redirect("/404");
+}
+// Getting the current user.
+const currentUser = userSnapshot.data() as userModel;
+
+// Gets the words from the api hosted in localhost.
+const response = await fetch("http://localhost:4321/api/words.json");
+const words = await response.json();
+
+const firstWord = words[0].spanish;
+const firstWordType = words[0].type;
+
+const time = new Date();
+time.setSeconds(time.getSeconds() + 60);
+
+const id = user.uid;
+---
+
+<Layout title="¿Como Se Dice?">
+	<Navbar
+	username={ currentUser.username },
+	email={ currentUser.email },
+	userImage={ currentUser.profilePicture }
+	/>
+	<main>
+		<div class="flex flex-col items-center">
+			<div class="w-full max-w-sm ">
+				<div class="flex flex-col items-center pb-10">
+					<img class="w-32 h-32 mt-8 rounded-full shadow-lg" src={ currentUser.profilePicture } />
+					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{ currentUser.username }</h5>
+
+                    <CountdownTimer client:idle id={ id } expiryTimestamp={ time }></CountdownTimer>
+
+					<div class="flex mt-4 md:mt-6">
+						<p id="score" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Score: 0</p>
+						<p id="bestScore" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Best score: { currentUser.timedGameMode.bestScore }</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <NextWordCard word={ firstWord } wordType={ firstWordType }></NextWordCard>
+
+        <TimedGameMode client:idle user={ currentUser } wordsMap={ words }/>
+
+	</main>
+</Layout>

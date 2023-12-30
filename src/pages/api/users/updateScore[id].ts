@@ -22,8 +22,8 @@ export const POST: APIRoute = async ({ params, redirect, request }) => {
 
     // Updating the record 'normalGameMode' with the new high score.
     await usersRef.doc(userID).update({
-        normalGameMode: body
+        timedGameMode: body
     })
 
-  return redirect("/singleplayer");
+  return redirect("/timedMode");
 };
