@@ -4,6 +4,8 @@ import Navbar from "../components/navigationBar/Navbar.astro";
 import Card from '../components/Card.astro';
 import CardWithInput from '../components/CardWithInput.astro';
 
+import GameModeCard from '../components/react/CardWithGameModes.jsx';
+
 // Importing user interface and user functions.
 import type { userModel } from '../pages/api/interfaces/user';
 import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
@@ -40,12 +42,11 @@ import '../styles.css';
 	<!-- Card elements. -->
 	<main class=" flex justify-center items-center h-fit">
 		<ul role="list" class="link-card-grid drop-shadow-xl">
-			<Card
-				href="/singleplayer"
-				title="Start Singleplayer"
-				body="Play Cómo Se Dice Alone"
-				
-			/>
+
+			<GameModeCard client:idle 
+				title="Start Singleplayer" 
+				body="Play Cómo Se Dice Alone">
+			</GameModeCard>
 			<Card
 				href="/multiplayer"
 				title="Start Multiplayer Room"
@@ -59,7 +60,6 @@ import '../styles.css';
 			<CardWithInput
 				title="Join Multiplayer Room"
 				roomCode="0000"
-
 			/>
 		</ul>
 	</main>
