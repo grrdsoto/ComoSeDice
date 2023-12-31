@@ -3,23 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from "../components/navigationBar/Navbar.astro";
 import Card from '../components/Card.astro';
 import CardWithInput from '../components/CardWithInput.astro';
+import Footer from '../components/MainFooter.astro';
 
-// Importing database tools.
-import { app } from "../firebase/server";
-import { getAuth } from "firebase-admin/auth";
+import GameModeCard from '../components/react/cardWithGameModes.jsx';
 
 // Importing user interface and user functions.
 import type { userModel } from '../pages/api/interfaces/user';
 import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
 
-// Initalizing the method that will allow us to get the user.
-const auth = getAuth(app);
-
 // Check current session 
 if (!Astro.cookies.has("session")) {
   return Astro.redirect("/signin");
 }
-const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").value);
+const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session")?.value);
 
 if (!user) {
   return Astro.redirect("/signin");
@@ -36,7 +32,7 @@ const currentUser = userSnapshot.data() as userModel;
 import '../styles.css';
 ---
 
-<Layout title="cómo se dice?">
+<Layout title="Cómo Se Dice?">
 	<!-- Navigation bar -->
 	<Navbar 
     username={ currentUser.username }, 
@@ -45,17 +41,16 @@ import '../styles.css';
     />
 
 	<!-- Card elements. -->
-	<main class=" flex justify-center itemfs-center h-fit">
+	<main class=" flex justify-center items-center h-fit">
 		<ul role="list" class="link-card-grid drop-shadow-xl">
+
+			<GameModeCard client:idle 
+				title="Start Singleplayer" 
+				body="Play Cómo Se Dice Alone">
+			</GameModeCard>
 			<Card
-				href="/singleplayer"
-				title="Start Singleplayer"
-				body="Play Cómo Se Dice Alone"
-				
-			/>
-			<Card
-				href=""
-				title="Start Multiplayer Room (in development)"
+				href="/multiplayer"
+				title="Start Multiplayer Room"
 				body="Start a room to play against friends 😈"
 			/> 
 			<Card
@@ -64,10 +59,11 @@ import '../styles.css';
 				body="Get as many words right in the shortest time and see where you stack up against the world 🌐"
 			/>
 			<CardWithInput
-				title="Join Multiplayer Room (in development)"
+				title="Join Multiplayer Room"
 				roomCode="0000"
-
 			/>
 		</ul>
 	</main>
+
+	<Footer></Footer>
 </Layout>
