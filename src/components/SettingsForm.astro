@@ -2,7 +2,7 @@
 import tailwindConfig from "../../tailwind.config.cjs"; 
 const { title } = Astro.props;
 ---
-<form class="bg-white text-center border-2 p-10 sm:rounded-lg justify-center relative overflow-x-auto shadow-md sm:rounded-lg">
+<form class="bg-white text-center border-2 p-10 justify-center relative overflow-x-auto shadow-md sm:rounded-lg">
     <div class="space-y-4">
         <h1 class="text-black">{title}</h1>
         <label class="flex items-center space-x-2">
@@ -18,7 +18,7 @@ const { title } = Astro.props;
             <span class="text-black">Hard Mode </span>
         </label>
     </div>
-    <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600">Submit</button>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-full hover:bg-blue-600">Submit</button>
 </form>
 
 

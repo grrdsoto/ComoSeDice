@@ -1,22 +1,48 @@
 ---
+import '../styles.css';
 interface Props {
-	title: string;
-	body: string;
-	href: string;
+	word: string;
+	wordType: string;
 }
-import "../../styles.css";
-const { href, title, body } = Astro.props;
+import "../styles.css";
+const { word, wordType } = Astro.props;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
+<div class="link-card" >
+	<a>
+		<h2 id="nextWordContainer" class="justify-center item-center">
+			¿Cómo Se Dice <b>{word}</b> (<i>{wordType}</i>)?
 		</h2>
-		<p>
-			{body}
-		</p>
 	</a>
-</li>
-
+</div>
+<style>
+	.link-card {
+		list-style: none;
+		display: flex;
+		padding: 1px;
+		background-color: #white;
+		background-image: none;
+		background-size: 400%;
+		border-radius: 7px;
+		background-position: 100%;
+		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+	}
+	.link-card > a {
+		width: 100%;
+		text-decoration: none;
+		line-height: 1.4;
+		padding: calc(1.5rem - 1px);
+		border-radius: 8px;
+		color: rgb(0, 0, 0);
+		background-color: #white;
+		opacity: 0.8;
+	}
+	h2 {
+		margin: 0;
+		font-size: 1.25rem;
+	}
+	p {
+		margin-top: 0.5rem;
+		margin-bottom: 0;
+	}
+</style>

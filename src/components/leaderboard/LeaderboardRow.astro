@@ -3,7 +3,6 @@
  * Component that will be used to create each of the rows that will be in the leaderboard table that is in 
  * leaderboard.astro.
  */
-import type { string } from 'astro/zod';
 interface Props {
 	username: string;
 	email: string;
@@ -24,7 +23,7 @@ const { username, email, bestScore, gamesPlayed, rank } = Astro.props;
       </div>
   </th>
   <td class="px-6 py-4">
-      { rank }
+    { rank }
   </td>
   <td class="px-6 py-4">
     { bestScore }

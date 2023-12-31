@@ -53,7 +53,7 @@ function displayNextWord() {
     console.log("In displayNextWord") 
     if (currentWordIndex < words.length) {
         console.log("Here")
-        nextWordContainer.textContent = "¿Como Se Dice? " + words[currentWordIndex].spanish;
+        nextWordContainer.textContent = "¿Cómo Se Dice? " + words[currentWordIndex].spanish;
         guessField.value = '';
         resultDiv.textContent = '';
     } else {

@@ -1,5 +1,5 @@
 /**
- * This file will handle the sign in logic.
+ * Endpoint that will handle the sign in logic.
  */
 
 import type { APIRoute } from "astro";

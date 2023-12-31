@@ -1,5 +1,5 @@
 /**
- * This file will handle all new users that will be created with the form that is in register.astro. It will create a new auth user
+ * Endpoint that will handle all new users that will be created with the form that is in register.astro. It will create a new auth user
  * and link the auth user to an instance in teh "users" collection.
  */
 
@@ -11,20 +11,13 @@ import { getFirestore } from "firebase-admin/firestore";
 export const POST: APIRoute = async ({ request, redirect }) => {
   const auth = getAuth(app);
 
-  /* Get form data */
-  const formData = await request.formData();
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
-  const name = formData.get("name")?.toString();
-  const username = formData.get("username")?.toString();
+  let body = await request.json();
 
-  // Making sure that there is no missing data coming from the user.
-  if (!email || !password || !name ) {
-    return new Response(
-      "Missing form data",
-      { status: 400 }
-    );
-  }
+  let email = body.email;
+  let password = body.password;
+  let name = body.name;
+  let username = body.username;
+  let profilePictureUrl = body.profilePicture;
 
   try {
     // Create auth user.
@@ -37,7 +30,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     auth user to an instance in the "users" collection.
     */
     }).then((userRecord) => {
-      console.log('Succesfully created new user:', userRecord.uid)
       const db = getFirestore(app);
       /* 
       Getting collection "users" from the database. 
@@ -52,18 +44,24 @@ export const POST: APIRoute = async ({ request, redirect }) => {
           gamesPlayed: 0
         },
         password: password,
-        signedIn: false,
         timedGameMode: {
           bestScore: 0,
           gamesPlayed: 0
         },
-        username: username
+        username: username,
+        profilePicture: profilePictureUrl
       });
     });
   } catch (error: any) {
+    let message = "";
+
+    if (error.code == "auth/email-already-exists") {
+      message = "This email is already being used."
+    }
+
     return new Response(
-      "Something went wrong",
-      { status: 400 }
+      "Something went wrong" + error,
+      { status: 400, statusText: message }
     );
   }
   return redirect("/signin");

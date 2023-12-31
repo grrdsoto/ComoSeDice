@@ -24,3 +24,6 @@ pnpm-debug.log*
 .flaskenv*
 !.env.project
 !.env.vault
+.idea/misc.xml
+.idea/ComoSeDice.iml
+.idea/modules.xml

@@ -9,10 +9,10 @@ export interface userModel {
         gamesPlayed: string;
     };
     password: string;
-    signedIn: string;
     timedGameMode: {
         bestScore: string;
         gamesPlayed: string;
     };
     username: string;
+    profilePicture: string;
 }

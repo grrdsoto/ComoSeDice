@@ -1,5 +1,5 @@
 /**
- * This file will handle the signout logic.
+ * Endpoint that will handle the signout logic.
  */
 
 import type { APIRoute } from "astro";
