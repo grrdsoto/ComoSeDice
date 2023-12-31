@@ -17,7 +17,7 @@ function updateBestScore(id) {
   will be shown.
   */
   if (parseInt(userScore.textContent.split(" ")[1]) > parseInt(bestScore.textContent.split(" ")[2])) {
-    fetch("http://localhost:4321/api/users/updateScore" + id, {
+    fetch(import.meta.env.PROD + "/api/users/updateScore" + id, {
       method: "POST",
       header: { 
           "Accept": "application/json",

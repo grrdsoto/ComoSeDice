@@ -88,7 +88,7 @@ export default function Counter(props) {
             <form className="space-y-4 md:space-y-6" onSubmit={verifyNewAccount}>
 
                 <div className="flex items-center justify-center mt-5">
-                    <img id="profilePicture" src="/src/pages/images/add-photo.png" className="w-24 h-24 mb-3 shadow-lg hover:opacity-40"></img>
+                    <img id="profilePicture" src="/src/pages/images/addphoto.png" className="w-24 h-24 mb-3 shadow-lg hover:opacity-40"></img>
                 </div>  
 
                 <ProfilePictureGrid client:idle urls= { urlMap }></ProfilePictureGrid>

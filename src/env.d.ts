@@ -20,6 +20,12 @@ interface ImportMetaEnv {
     readonly PUBLIC_CLIENT_STORAGE_BUCKET: string;
     readonly PUBLIC_CLIENT_MESSAGE_SENDER_ID: string;
     readonly PUBLIC_CLIENT_APP_ID: string;
+    
+    //Prod settings
+    readonly PROD_URL: string;
+    readonly DEV_URL: string;
+    //Dev settings
+
   }
   
   interface ImportMeta {
