@@ -19,6 +19,10 @@ function updateWord(index, container, guessField, words) {
     guessField.value = '';
 }
 
+function isAlphanumeric(str) {
+    return /^[a-zA-Z0-9]+$/.test(str);
+}
+
 /**
  * Function that handles the game logic. 'props' contains all 3 paramaters, i.e. id, user, and wordsMap.
  * To get the values of the parameters use dot notation: i.e. props.id, props.user, props.wordsMap.
@@ -43,31 +47,33 @@ export default function Counter(props) {
         let guessField = document.getElementById('timedModeGuessField');
         let scoreID = document.getElementById("timedModeScore");
 
-        const userGuess = guessField.value.toLowerCase();
+        const userGuess = guessField.value.toLowerCase().trim();
         const currentWord = wordsMap[currentWordIndex];
         
-        /* 
-        The user got the correct answer, that means that there will be confetti, the background will turn green, 'correctNumberOfGuesses'
-        and 'currentWordIndex' will be incremented by one. The score will be updated as well.
-        */
-        if (userGuess === currentWord.english.toLowerCase()) {
-            confetti();
+        if(isAlphanumeric(userGuess)) {
+            /* 
+            The user got the correct answer, that means that there will be confetti, the background will turn green, 'correctNumberOfGuesses'
+            and 'currentWordIndex' will be incremented by one. The score will be updated as well.
+            */
+            if (userGuess === currentWord.english.toLowerCase()) {
+                confetti();
 
-            nextWordContainer.parentElement.style.backgroundColor = 'green';
-            
-            correctNumberOfGuesses++
+                nextWordContainer.parentElement.style.backgroundColor = 'green';
+                
+                correctNumberOfGuesses++
 
-            scoreID.innerHTML = "Score: " + correctNumberOfGuesses.toString();
-        /*
-        The user got the wrong answer, meaning we will decrease the currentNumberOfLives by one.
-        */
-        } else {
-            nextWordContainer.parentElement.style.backgroundColor = 'red';
-        }
+                scoreID.innerHTML = "Score: " + correctNumberOfGuesses.toString();
+            /*
+            The user got the wrong answer, meaning we will decrease the currentNumberOfLives by one.
+            */
+            } else {
+                nextWordContainer.parentElement.style.backgroundColor = 'red';
+            }
 
-        if (currentWordIndex < wordsMap.length) {
-            currentWordIndex++;
-            updateWord(currentWordIndex, nextWordContainer, guessField, wordsMap);
+            if (currentWordIndex < wordsMap.length) {
+                currentWordIndex++;
+                updateWord(currentWordIndex, nextWordContainer, guessField, wordsMap);
+            }
         }
     }
 

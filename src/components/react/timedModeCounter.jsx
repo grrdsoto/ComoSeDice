@@ -1,4 +1,5 @@
 import React from 'react';
+import confetti from "canvas-confetti"
 import { useTimer } from 'react-timer-hook';
 
 /**
@@ -31,6 +32,7 @@ function updateBestScore(id) {
 
     bestScore.innerHTML = "Best score: " + userScore.textContent.split(" ")[1];
     document.getElementById("userOficialHighScore").textContent = "New High Score: " + userScore.textContent.split(" ")[1];
+    confetti();
     document.getElementById('timedGameModeModal').showModal();
   // If the user does not get a high score, the play again button will show.
   } else {

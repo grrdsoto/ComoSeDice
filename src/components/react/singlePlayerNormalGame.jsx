@@ -33,6 +33,10 @@ function updateWord(index, container, guessField, words) {
     guessField.value = '';
 }
 
+function isAlphanumeric(str) {
+    return /^[a-zA-Z0-9]+$/.test(str);
+}
+
 /**
  * Function that handles the game logic. 'props' contains all 3 paramaters, i.e. id, user, and wordsMap.
  * To get the values of the parameters use dot notation: i.e. props.id, props.user, props.wordsMap.
@@ -61,62 +65,65 @@ export default function Counter(props) {
         let numberOfLives = document.getElementById('numberOfLives');
         let playAgainButton = document.getElementById("playAgainButton");
 
-        const userGuess = guessField.value.toLowerCase();
+        const userGuess = guessField.value.toLowerCase().trim();
         const currentWord = words[currentWordIndex];
-        
-        /* 
-        The user got the correct answer, that means that there will be confetti, the background will turn green, 'correctNumberOfGuesses'
-        and 'currentWordIndex' will be incremented by one. The score will be updated as well.
-        */
-        if (userGuess === currentWord.english.toLowerCase()) {
-            confetti();
 
-            nextWordContainer.parentElement.style.backgroundColor = 'green';
-            
-            correctNumberOfGuesses++
-
-            scoreID.innerHTML = "Score: " + correctNumberOfGuesses.toString();
-
+        if(isAlphanumeric(userGuess)) {
             /* 
-            The user got 10 correct words with remaining lives. Meaning we tell them they won and we display the 'play again'
-            button so they can play play again
+            The user got the correct answer, that means that there will be confetti, the background will turn green, 'correctNumberOfGuesses'
+            and 'currentWordIndex' will be incremented by one. The score will be updated as well.
             */
-            if (correctNumberOfGuesses == 10) {
-                determineOutcome(nextWordContainer, guessField, guessButton, 'You Win!');
-                playAgainButton.style.display = "inline";
-            }
+            if (userGuess === currentWord.english.toLowerCase()) {
+                confetti();
+
+                nextWordContainer.parentElement.style.backgroundColor = 'green';
+                
+                correctNumberOfGuesses++
+
+                scoreID.innerHTML = "Score: " + correctNumberOfGuesses.toString();
+
+                /* 
+                The user got 10 correct words with remaining lives. Meaning we tell them they won and we display the 'play again'
+                button so they can play play again
+                */
+                if (correctNumberOfGuesses == 10) {
+                    determineOutcome(nextWordContainer, guessField, guessButton, 'You Win!');
+                    playAgainButton.style.display = "inline";
+                }
+                /*
+                The user got the correct answer, they haven't reached the 10 points to win and there are still words in the words map to guess.
+                Meaning the 'nextWordContainer' will be updated with the new word and the guessfield will be emptied so the user can guess again. 
+                */
+                else if (currentWordIndex < words.length) {
+                    currentWordIndex++;
+                    updateWord(currentWordIndex, nextWordContainer, guessField, words);
+                }
             /*
-            The user got the correct answer, they haven't reached the 10 points to win and there are still words in the words map to guess.
-            Meaning the 'nextWordContainer' will be updated with the new word and the guessfield will be emptied so the user can guess again. 
-            */
-            else if (currentWordIndex < words.length) {
-                currentWordIndex++;
-                updateWord(currentWordIndex, nextWordContainer, guessField, words);
-            }
-        /*
-        The user got the wrong answer, meaning we will decrease the currentNumberOfLives by one.
-        */
-        } else {
-            currentNumberOfLives--;
-            numberOfLives.innerText = "Lives: " + currentNumberOfLives.toString();
-            nextWordContainer.parentElement.style.backgroundColor = 'red';
-
-            /* 
-            The user got the wrong answer and if the user has 0 lives, then they lose the game and the play again button will be
-            displayed so they can play again.
-            */
-            if (currentNumberOfLives == 0) {
-                determineOutcome(nextWordContainer, guessField, guessButton, 'You ran out of lives, try again.');
-                playAgainButton.style.display = "inline";
-            /* 
-            The user got the wrong answer and if the user has lives left, then we move on to the next word meaning we will increase 
-            the 'currentWordIndex' by one.
+            The user got the wrong answer, meaning we will decrease the currentNumberOfLives by one.
             */
             } else {
-                currentWordIndex++;
-                updateWord(currentWordIndex, nextWordContainer, guessField, words);
+                currentNumberOfLives--;
+                numberOfLives.innerText = "Lives: " + currentNumberOfLives.toString();
+                nextWordContainer.parentElement.style.backgroundColor = 'red';
+
+                /* 
+                The user got the wrong answer and if the user has 0 lives, then they lose the game and the play again button will be
+                displayed so they can play again.
+                */
+                if (currentNumberOfLives == 0) {
+                    determineOutcome(nextWordContainer, guessField, guessButton, 'You ran out of lives, try again.');
+                    playAgainButton.style.display = "inline";
+                /* 
+                The user got the wrong answer and if the user has lives left, then we move on to the next word meaning we will increase 
+                the 'currentWordIndex' by one.
+                */
+                } else {
+                    currentWordIndex++;
+                    updateWord(currentWordIndex, nextWordContainer, guessField, words);
+                }
             }
         }
+
     }
 
     return (
