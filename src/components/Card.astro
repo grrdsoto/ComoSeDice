@@ -1,9 +1,14 @@
 ---
+/**
+ * Component to create each card in the card grid. At the moment there are 4 cards,
+ * 'Single player', 'Daily challenge', 'Start Multiplayer', and 'Join multiplayer'.
+ */
 interface Props {
 	title: string;
 	body: string;
 	href: string;
 }
+
 import "../styles.css";
 const { href, title, body } = Astro.props;
 ---

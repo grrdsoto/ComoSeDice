@@ -21,7 +21,7 @@ const auth = getAuth(app);
 if (!Astro.cookies.has("session")) {
   return Astro.redirect("/signin");
 }
-const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session").value);
+const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session")?.value);
 
 if (!user) {
   return Astro.redirect("/signin");

@@ -1,97 +1,35 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getImagesMap } from "./images/images";
-import ProfilePictureGrid from "../components/profilePictureGrid.jsx";
+import { getAllUsernames } from "../pages/api/users/user";
+import SignUpForm from "../components/react/signUpForm";
 
 const allUrls = await getImagesMap();
+const allUsernames = await getAllUsernames();
 ---
 <Layout title="Register">
     <section class="bg-gray-50 dark:bg-gray-900">
+
+        <div style={{display: 'none'}} id="emailAlert" class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <div>
+              This email is already being used.
+            </div>
+        </div>
+
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create Como Se Dice account
                     </h1>
-                    <form class="space-y-4 md:space-y-6">
 
-                        <div class="flex items-center justify-center mt-5">
-                            <label for="profilePicture"></label>
-                            <img id="profilePicture" src="/src/pages/images/add-photo.png" class="w-24 h-24 mb-3 shadow-lg hover:opacity-40"></img>
-                            <!-- <img id="profilePicture" class="w-24 h-24 mb-3 shadow-lg hover:opacity-40" src="/src/pages/images/add-photo.png" /> -->
-                        </div>  
-                        
-                        <ProfilePictureGrid client:idle urls={ allUrls } />
-                        
-                        <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input name="name" id="name" placeholder="Enter your name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                        </div>
-                        <div>
-                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                            <input name="username" id="username" placeholder="Enter your username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                        </div>
-                        <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Enter your remail" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                        </div>
-                        <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Enter your password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                        </div>
-                        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                            Create account
-                        </button>
-                        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Already have an account? <a href="/signin" class="font-medium text-blue-600 text-primary-600 hover:underline dark:text-primary-500">Sign in</a>
-                        </p>
-                    </form>
+                    <SignUpForm client:idle urls={ allUrls }, usernames={ allUsernames }></SignUpForm>
                 </div>
             </div>
         </div>
     </section>
 </Layout>
-
-<script>
-    const form = document.querySelector("form") as HTMLFormElement;
-  
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-  
-        // Getting data from the form.
-        const formData = new FormData(form);
-        const email = formData.get("email")?.toString();
-        const password = formData.get("password")?.toString();
-        const name = formData.get("name")?.toString();
-        const username = formData.get("username")?.toString();
-
-        const url = document.getElementById("profilePicture")?.getAttribute("src")?.toString() as string;
-
-        /**
-         * Calls the 'register' endpoint with the body of the user so it can be inserted into the database.
-         */
-        fetch("/api/auth/register", {
-            method: "POST",
-            body: JSON.stringify( {
-                email: email,
-                name: name,
-                normalGameMode: {
-                    bestScore: 0,
-                    gamesPlayed: 0
-                },
-                password: password,
-                timedGameMode: {
-                    bestScore: 0,
-                    gamesPlayed: 0
-                },
-                username: username,
-                profilePicture: url
-            })
-        }).then((response) => {
-            // Redirect if successful
-            if (response.redirected) {
-                window.location.assign(response.url);
-            }
-        })
-    });
-  </script>

@@ -1,3 +1,8 @@
+/**
+ * This file is for helper functions that will be used throughout the web application when dealing with 
+ * user information such as verifying if they're signed in or getting the user snapshots.
+ */
+
 // Importing database tools.
 import { app } from "../../../firebase/server";
 import { getAuth } from "firebase-admin/auth";
@@ -8,6 +13,7 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 const usersRef = db.collection("users");
+
 
 /**
  * Checks the cookie that was created when the user signed in and authenticates it.
@@ -32,16 +38,20 @@ export async function getUserSnapshot(user: any) {
     return userSnapshot;
 }
 
+/**
+ * Function that gets all the usernames from the database to check whether or not the username that the
+ * user is choosing is already used.
+ * 
+ * @returns Array with all the usernames in the database.
+ */
+export async function getAllUsernames() {
+    const allUsers = await usersRef.get();
 
-// export async function updateBestScore(userID: any, updatedScore: any) {
-//     try {
-//         // console.log("In the update score function")
-//         await usersRef.doc(userID).update({
-//             updatedScore
-//         });
-//     } catch (error) {
-//         return new Response("Something went wrong", {
-//             status: 500,
-//         })
-//     }
-// }
+    // Creation of array that will be used to store the top x users and then stored in userArray.
+    const usernameArray: String[] = [];
+    allUsers.forEach(doc => {
+        usernameArray.push(doc.data().username);
+    })
+    
+    return usernameArray;
+}

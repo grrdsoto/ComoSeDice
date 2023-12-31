@@ -7,7 +7,7 @@
  * Index 2 will contain the 'type' version of the word.
  */
 const listWords = [
-    ["gato", "cat", "noun"],
+  ["gato", "cat", "noun"],
   ["perro", "dog", "noun"],
   ["casa", "house", "noun"],
   ["sol", "sun", "noun"],

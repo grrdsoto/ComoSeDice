@@ -1,5 +1,5 @@
 /**
- * This file will handle all new users that will be created with the form that is in register.astro. It will create a new auth user
+ * Endpoint that will handle all new users that will be created with the form that is in register.astro. It will create a new auth user
  * and link the auth user to an instance in teh "users" collection.
  */
 
@@ -30,7 +30,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     auth user to an instance in the "users" collection.
     */
     }).then((userRecord) => {
-      console.log('Succesfully created new user:', userRecord.uid)
       const db = getFirestore(app);
       /* 
       Getting collection "users" from the database. 
@@ -54,9 +53,15 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       });
     });
   } catch (error: any) {
+    let message = "";
+
+    if (error.code == "auth/email-already-exists") {
+      message = "This email is already being used."
+    }
+
     return new Response(
       "Something went wrong" + error,
-      { status: 400 }
+      { status: 400, statusText: message }
     );
   }
   return redirect("/signin");
