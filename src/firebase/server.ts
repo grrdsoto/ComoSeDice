@@ -1,6 +1,7 @@
 /**
  * Configuration to use the database on the server side.
  */
+export const prerender = true;
 import type { ServiceAccount } from "firebase-admin";
 import { initializeApp, cert } from "firebase-admin/app";
 

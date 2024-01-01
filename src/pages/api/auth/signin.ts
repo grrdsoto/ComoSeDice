@@ -1,7 +1,6 @@
 /**
  * Endpoint that will handle the sign in logic.
  */
-
 import type { APIRoute } from "astro";
 import { app } from "../../../firebase/server";
 import { getAuth } from "firebase-admin/auth";
@@ -35,8 +34,7 @@ export const GET: APIRoute = async ({ request, cookies, redirect }) => {
   });
 
   cookies.set("session", sessionCookie, {
-    path: "/",
+    path: "/mainmenu",
   });
-
-  return redirect("/");
+  return redirect("/mainmenu");
 };

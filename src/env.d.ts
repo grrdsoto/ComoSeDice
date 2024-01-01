@@ -23,8 +23,8 @@ interface ImportMetaEnv {
     
     //Prod settings
     readonly PROD_URL: string;
-    readonly DEV_URL: string;
     //Dev settings
+    readonly DEV_URL: string;
 
   }
   

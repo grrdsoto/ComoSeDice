@@ -2,5 +2,9 @@
   "compilerOptions": {
     "jsx": "react"
   },
-  "extends": "astro/tsconfigs/strict"
+  "extends": "astro/tsconfigs/strict",
+  "declarationDir": "types",
+  "rules": {
+    "no-use-before-define": ["error", { "variables": true }]
+  }
 }

@@ -2,7 +2,6 @@
  * Endpoint that will handle all new users that will be created with the form that is in register.astro. It will create a new auth user
  * and link the auth user to an instance in teh "users" collection.
  */
-
 import type { APIRoute } from "astro";
 import { getAuth } from "firebase-admin/auth";
 import { app } from "../../../firebase/server";
@@ -60,7 +59,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     }
 
     return new Response(
-      "Something went wrong" + error,
+      "Something went wrong " + error,
       { status: 400, statusText: message }
     );
   }
