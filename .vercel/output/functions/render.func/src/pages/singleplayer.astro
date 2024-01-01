@@ -1,0 +1,53 @@
+---
+import Navbar from '../components/navigationBar/Navbar.astro';
+import SinglePlayerGame from '../components/Game.astro';
+
+// Importing user interface and user functions.
+import type { userModel } from '../pages/api/interfaces/user';
+import { getUserSnapshot, checkCookieSessionAndGetUser } from '../pages/api/users/user'
+
+// Check current session
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const user = await checkCookieSessionAndGetUser(Astro.cookies.get("session")?.value);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+const userSnapshot = await getUserSnapshot(user)
+
+if (!userSnapshot.exists) {
+  return Astro.redirect("/404");
+}
+// Getting the current user.
+const currentUser = userSnapshot.data() as userModel;
+
+import '../styles.css'
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="¿Como Se Dice?">
+	<Navbar
+	username={ currentUser.username },
+	email={ currentUser.email },
+	userImage={ currentUser.profilePicture }
+	/>
+	<main>
+		<div class="flex flex-col items-center">
+			<div class="w-full max-w-sm ">
+				<div class="flex flex-col items-center pb-10">
+					<img class="w-32 h-32 mt-8 rounded-full shadow-lg" src={ currentUser.profilePicture } />
+					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{ currentUser.username }</h5>
+					<div class="flex mt-4 md:mt-6">
+						<p id="score" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Score: 0</p>
+						<p id="numberOfLives" class="inline-flex items-center px-4 py-2 text-m font-medium text-center dark:text-black">Lives: 3</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<SinglePlayerGame userSnapshot={ currentUser }/>
+	</main>
+</Layout>
