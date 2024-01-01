@@ -4,6 +4,7 @@
  */
 
 // Importing database tools.
+export const prerender = true;
 import { app } from "../../../firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from 'firebase-admin/firestore';

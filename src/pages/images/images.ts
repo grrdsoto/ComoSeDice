@@ -1,7 +1,7 @@
 /*
 This file is to help us get the images for the users profile picture.
 */
-
+export const prerender = true;
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 import { app } from "../../firebase/client";
 

@@ -2,7 +2,6 @@
  * Dynamic endpoint which has the path of '[id]'. '[id]' is then used in order
  * to get the correct user in order to update the users high score if required. 
  */
-
 import type { APIRoute } from "astro";
 import { app } from "../../../firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
