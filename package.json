@@ -10,10 +10,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/netlify": "^4.1.0",
     "@astrojs/node": "^7.0.3",
     "@astrojs/react": "^3.0.9",
     "@astrojs/tailwind": "^5.1.0",
-    "@astrojs/vercel": "^6.1.1",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "astro": "^4.0.8",
