@@ -1,6 +1,7 @@
 /**
  * Endpoint that will handle the sign in logic.
  */
+export const prerender = true;
 import type { APIRoute } from "astro";
 import { app } from "../../../firebase/server";
 import { getAuth } from "firebase-admin/auth";

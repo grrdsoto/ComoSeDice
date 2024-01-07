@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   let profilePictureUrl = body.profilePicture;
 
   try {
-    // Create auth user.
+    // Create user.
     await auth.createUser({
       email,
       password,
