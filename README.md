@@ -4,3 +4,4 @@ from root run:
 '' 
 bun run start
 ''
+![](public/comosedicedemo.gif)
