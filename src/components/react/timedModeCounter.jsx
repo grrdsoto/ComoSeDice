@@ -1,7 +1,6 @@
 import React from 'react';
 import confetti from "canvas-confetti"
-import pkg from "react-timer-hook";
-const { useTimer } = pkg;
+import { useTimer } from "react-timer-hook";
 
 /**
  * Function that will call the updateScore endpoint to update the users score if they have a new high score. 
@@ -18,7 +17,7 @@ function updateBestScore(id) {
   will be shown.
   */
   if (parseInt(userScore.textContent.split(" ")[1]) > parseInt(bestScore.textContent.split(" ")[2])) {
-    fetch(import.meta.env.PROD + "/api/users/updateScore" + id, {
+    fetch(import.meta.env.PINCHE_URL + "/api/users/updateScore" + id, {
       method: "POST",
       header: { 
           "Accept": "application/json",
