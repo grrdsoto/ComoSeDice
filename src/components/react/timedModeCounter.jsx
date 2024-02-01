@@ -1,7 +1,6 @@
 import React from 'react';
 import confetti from "canvas-confetti"
-import pkg from "react-timer-hook";
-const { useTimer } = pkg;
+import { useTimer } from "react-timer-hook";
 
 /**
  * Function that will call the updateScore endpoint to update the users score if they have a new high score. 
